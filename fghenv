@@ -1,0 +1,4 @@
+HOST=https://bloodbank-api-v1.herokuapp.com
+PORT=http://localhost:5000
+giturl=https://git.heroku.com/bloodbank-api-v1.git
+swagger"host": "bloodbank-api-v1.herokuapp.com",
