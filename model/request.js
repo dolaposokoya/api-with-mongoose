@@ -1,29 +1,49 @@
-config = require('../DB');
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
 
-let createRequest = (criteria, decoded,callback) => {
-    config.getDB().query('insert into requestblood set ? ',criteria, callback)
-}
+var requestSchema = new Schema({
+  patient_name: {
+    type: String,
+  },
+  patient_mobile: {
+    type: String,
+  },
+  patient_email: { type: String },
+  user_id: {
+    type: String,
+  },
+  date_needed: { type: Date },
+  blood_group: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
+  pincode: {
+    type: Number,
+  },
+  state: {
+    type: String,
+  },
+  hospital_name: {
+    type: String,
+  },
+  hospital_address: {
+    type: String,
+  },
+  doctor_name: {
+    type: String,
+  },
+  hospital_mobile: {
+    type: String,
+  },
+  message: {
+    type: String,
+  },
+  status: {
+    type: String,
+    default: "Not Approved",
+  },
+});
 
-let getRequestById = (criteria, paramsdata, callback) => {
-    let conditions = ''
-    paramsdata.request_id ? conditions += ` request_id = '${paramsdata.request_id}'`: true
-    config.getDB().query(`select * from requestblood where ${conditions}`, callback)
-}
-
-let updateRequest = (criteria, paramsdata, callback) => {
-	let conditions = '';
-	let setData = ''
-	paramsdata.request_id ? conditions += ` request_id = ${paramsdata.request_id}` : true;
-    Object.keys(dataToset).forEach(function (k) {
-        setData += k + ' = "' + dataToset[k] + '",' 
-    });
-    setData = setData.substring(0, setData.length - 1);
-    config.getDB().query(`update requestblood set ${setData} where ${conditions} `, callback)
-}
-
-module.exports = {
-    getRequestById: getRequestById,
-    createRequest : createRequest,
-}
-
-// date format DATE_FORMAT(date, "%W %M %e %Y")
+module.exports = mongoose.model("requests", requestSchema);

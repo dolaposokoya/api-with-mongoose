@@ -1,79 +1,60 @@
 let express = require("express"),
+  bcrypt = require("bcryptjs"),
   verifyToken = require("../model/auth");
 let router = express.Router();
-let requestSchema = require("../model/request");
+let adminSchema = require("../model/admin");
 let userSchema = require("../model/user");
 let metaDataSchema = require("../model/metadata"),
   jwt = require("jsonwebtoken");
 config = require("../DB");
+var base64 = require("base-64");
 
-// - - -  - - - - - - - - - - - - - - - - - - - - - -  - CREATE METADATA - - - - - - - - - - - - - - - - - - - - - - - //
-router.post("/Metadata", (req, res) => {
-  const blooddata = new metaDataSchema({
-    apositive: req.body.apositive,
-    anegative: req.body.anegative,
-    bpositive: req.body.bpositive,
-    bnegative: req.body.bnegative,
-    abpositive: req.body.abpositive,
-    abnegative: req.body.abnegative,
-    opositive: req.body.opositive,
-    onegative: req.body.onegative,
+// - - -  - - - - - - - - - - - - - CREATE ADMIN - - - - - - - - - - - - - - - //
+router.post("/create-admin", (req, res) => {
+  let id = Math.floor(Math.random() * 1000 * 1000),
+    profile_id = base64.encode(id);
+  password = req.body.password;
+  req.body.password = bcrypt.hashSync(password, 10);
+  const admin = new adminSchema({
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    username: req.body.username,
+    profile_image: req.body.profile_image,
+    password: req.body.password,
+    email: req.body.email,
+    profile_id: profile_id,
   });
-  blooddata.save(function (err, data) {
+  admin.save(function (err, data) {
     if (err) {
-      console.log(`Error message ${err.message}`);
-      res.json({
-        message: "Unable to create blood group",
-        success: false,
-        status: 200,
-      });
-    } else {
-      res.json({
-        message: "Blood group created",
-        success: true,
-        status: 200,
+      res.status(200).json({ message: err, success: false });
+    } else if (!err) {
+      res.status(200).json({
+        message: "Registration Successful",
         data: data,
+        success: true,
       });
     }
   });
 });
+
 // - - - - - - - - - - - -  - - - - - - - - - - - - - - GET METADATA  - - - - - - - - - - - - - - - - - - - - - - - - //
 router.get("/blood-all-group", (req, res) => {
-  try {
-    metaDataSchema.find().then((data) => {
-      console.log("data", data);
-      if (data) {
-        res.json({
-          message: "Data retrieved",
-          data: data,
-          success: true,
-          status: 200,
-        });
-      } else {
-        res.json({
-          message: "Unable to retrieve data",
-          success: false,
-          status: 200,
-        });
-      }
-    });
-  } catch (error) {
-    if (error) {
-      res
-        .status(500)
-        .json({ message: "Error occured", success: false, status: 500 });
+  metaDataSchema.find().then((data) => {
+    console.log("data", data);
+    if (data) {
+      res.json({ data: data });
+    } else {
+      res.json({ data: "Unable to retrieve data" });
     }
-  }
+  });
 });
 
 // - - - - - - - - - - - -  - - - - - - - - - - - - -  - CREATE REQUEST - - - - - - - - - - - - - - - - - - - - - - - //
 router.post("/create-request", (req, res) => {
   var legit = verifyToken.verify(req.headers.authorization);
-  var request = new requestSchema({
+  var request = new adminSchema({
     patient_name: req.body.patient_name,
     patient_mobile: req.body.patient_mobile,
-    patient_email: req.body.patient_email,
-    date_needed: req.body.date_needed,
     user_id: legit.user_id,
     blood_group: req.body.blood_group,
     city: req.body.city,
@@ -148,7 +129,7 @@ router.post("/create-request", (req, res) => {
 router.get("/get-request-by-id/:request_id", (req, res) => {
   var legit = verifyToken.verify(req.headers.authorization);
   if (legit) {
-    requestSchema.getRequestById(req.body, req.params, (err, data) => {
+    adminSchema.getRequestById(req.body, req.params, (err, data) => {
       if (err) {
         res.json({
           message: "Unable to get request try again after sometime",
@@ -174,7 +155,7 @@ router.get("/get-request-by-id/:request_id", (req, res) => {
 router.put("/update-request-by-id/:request_id", (req, res) => {
   var legit = verifyToken.verify(req.headers.authorization);
   if (legit) {
-    requestSchema.updateRequest(req.body, req.params, (err, data) => {
+    adminSchema.updateRequest(req.body, req.params, (err, data) => {
       if (err) {
         res.json({
           message: "Unable to update request try again after sometime",

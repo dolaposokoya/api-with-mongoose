@@ -1,6 +1,5 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-// const date = new Date
 
 var userSchema = new Schema({
   profile_id: {
@@ -15,6 +14,10 @@ var userSchema = new Schema({
   username: {
     type: String,
   },
+  user_type: {
+    type: String,
+    default: "user",
+  },
   profile_image: {
     type: Object,
   },
@@ -23,6 +26,18 @@ var userSchema = new Schema({
   },
   gender: {
     type: String,
+  },
+  blood_group: {
+    type: String,
+  },
+  city: { type: String },
+  state: { type: String },
+  weight: {
+    type: Number,
+  },
+  number_of_request: {
+    type: Number,
+    default: 0,
   },
   email: {
     type: String,
