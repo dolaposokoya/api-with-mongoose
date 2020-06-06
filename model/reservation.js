@@ -2,13 +2,28 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var reservationSchema = new Schema({
+  user_id: {
+    type: String,
+  },
   donor_name: {
+    type: String,
+  },
+  age: {
+    type: Number,
+  },
+  gender: {
     type: String,
   },
   donor_mobile: {
     type: String,
   },
-  user_id: {
+  weight: {
+    type: Number,
+  },
+  hospital_name: {
+    type: String,
+  },
+  hospital_address: {
     type: String,
   },
   city: {
@@ -20,17 +35,14 @@ var reservationSchema = new Schema({
   state: {
     type: String,
   },
-  hospital_name: {
-    type: String,
-  },
-  hospital_address: {
-    type: String,
-  },
   status: {
     type: String,
     default: "Not Approved",
   },
-  date_donated: {
+  reservation_date: {
+    type: Date,
+  },
+  createdAt: {
     type: Date,
     default: Date.now,
   },

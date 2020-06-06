@@ -14,7 +14,6 @@ const adminRoute = require("./routes/admin.route");
 const userRoute = require("./routes/user.route");
 const requestRoute = require("./routes/request.route");
 const reservationRoute = require("./routes/reservation.route");
-require("dotenv").config();
 
 const app = express();
 app.use(cookieParser());
@@ -30,12 +29,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-const port1 = "https://bloodbank-api-v1.herokuapp.com/api/docs";
-const port = 5000;
-if (port === undefined) {
-  console.log("Port number is not defined");
-} else {
-  const server = app.listen(port, function () {
-    console.log("Listening on port " + port);
-  });
-}
+// const port1 = "https://bloodbank-api-v1.herokuapp.com/api/docs";
+const port = process.env.PORT || 5000;
+app.listen(port, function () {
+  console.log("Listening on port " + port);
+});

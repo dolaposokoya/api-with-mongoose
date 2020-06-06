@@ -1,34 +1,39 @@
 let express = require("express"),
-  multer = require("multer"),
-  jwt = require("jsonwebtoken"),
   verifyToken = require("../model/auth");
 let router = express.Router();
-let reserveService = require("../model/reservation");
+let reservationSchema = require("../model/reservation");
 config = require("../DB");
 
 router.post("/create-reservation", (req, res) => {
   var legit = verifyToken.verify(req.headers.authorization);
+  const reservation = new reservationSchema({
+    user_id: legit.user_id,
+    donor_name: req.body.donor_name,
+    age: req.body.age,
+    gender: req.body.gender,
+    donor_mobile: req.body.donor_mobile,
+    weight: req.body.weight,
+    hospital_name: req.body.hospital_name,
+    hospital_address: req.body.hospital_address,
+    city: req.body.city,
+    pincode: req.body.pincode,
+    state: req.body.state,
+    reservation_date: req.body.reservation_date,
+  });
   if (legit) {
-    reserveService.createReserve(req.body, legit.user_id, (err, data) => {
+    reservation.save(function (err, data) {
       if (err) {
-        res.json({
-          message: "Unable to make request",
+        res.status(200).json({
+          message: "Unable to make reservation",
+          error: err,
           success: false,
-          status: 200,
         });
-        console.error(err);
       } else {
-        config
-          .getDB()
-          .query(
-            `INSERT INTO bank(reserve_id, user_id ) VALUES ('${data.insertId}','${legit.user_id}')`
-          );
-        res.json({
-          message: "We will get back to you when your request is met",
+        res.status(200).json({
+          message: "Reservation made",
+          data: data,
           success: true,
-          status: 200,
         });
-        console.error(req.body);
       }
     });
   } else {

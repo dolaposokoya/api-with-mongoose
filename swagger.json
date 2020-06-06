@@ -100,6 +100,31 @@
         }
       }
     },
+    "/reservation/create-reservation": {
+      "post": {
+        "summary": "Create Reservation",
+        "tags": ["Reservation"],
+        "consumes": "application/json",
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "authorization",
+          "in": "header",
+          "required": true
+        }, {
+          "name": "name",
+          "in": "body",
+          "description": "create reservation",
+          "schema": {
+            "$ref": "#/definitions/donateblood"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/user/create-user": {
       "post": {
         "summary": "Create User",
@@ -531,6 +556,67 @@
         "password": {
           "type": "string",
           "uniqueItems": "false"
+        }
+      }
+    },
+    "donateblood": {
+      "required": [
+        "donor_name",
+        "age",
+        "gender",
+        "donor_mobile",
+        "weight",
+        "hospital_name",
+        "hospital_address",
+        "city",
+        "pincode",
+        "state",
+        "reservation_date"
+      ],
+      "properties": {
+        "donor_name": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "age": {
+          "type": "number",
+          "uniqueItems": false
+        },
+        "gender": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "donor_mobile": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "weight": {
+          "type": "number",
+          "uniqueItems": false
+        },
+        "hospital_name": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "hospital_address": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "city": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "pincode": {
+          "type": "number",
+          "uniqueItems": false
+        },
+        "state": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "reservation_date": {
+          "type": "string",
+          "uniqueItems": false
         }
       }
     },

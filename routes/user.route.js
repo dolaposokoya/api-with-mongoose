@@ -161,6 +161,12 @@ router.post("/login-user", (req, res) => {
         user_id = data._id;
         profile_id = data.profile_id;
         userType = data.user_type;
+        month = data.dateCreated;
+        let last = month.getDay();
+        let newDate = new Date();
+        let n = newDate.getDay();
+        let d = n - last;
+        console.log("Last", last, "new", n, "Difference0", d);
         pwd = bcrypt.compareSync(plaintext, hash);
         if (pwd) {
           var token = jwt.sign(
@@ -181,6 +187,7 @@ router.post("/login-user", (req, res) => {
             token: token,
             user_id: user_id,
             profile_id: profile_id,
+            last: last,
           });
         } else {
           res.json({
