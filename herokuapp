@@ -1,2 +1,2 @@
-giturl = https://git.heroku.com/bloodbank-api-v1.git
-myapiurl = https://bloodbank-api-v1.herokuapp.com/api-docs/
+giturl = https://git.heroku.com/api-bloodbank.git
+myapiurl = https://api-bloodbank.herokuapp.com/
