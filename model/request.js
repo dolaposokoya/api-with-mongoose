@@ -35,13 +35,10 @@ var requestSchema = new Schema({
   hospital_address: {
     type: String,
   },
-  doctor_name: {
+  hospital_email: {
     type: String,
   },
-  hospital_mobile: {
-    type: String,
-  },
-  message: {
+  hospital_phone: {
     type: String,
   },
   status: {

@@ -1,3 +1,4 @@
+require('dotenv').config()
 let express = require("express"),
   multer = require("multer"),
   jwt = require("jsonwebtoken"),
@@ -10,7 +11,9 @@ var nodemailer = require("nodemailer");
 var uuid = require("uuid");
 var ObjectID = require("mongodb").ObjectID;
 var base64 = require("base-64");
+const io = require('../server')
 
+// console.log('IO',io)
 // Sending OTP to user email
 // https://nodemailer.com/about/
 // var smtpTransport = nodemailer.createTransport({
@@ -24,25 +27,33 @@ var base64 = require("base-64");
 
 // USING MULTER FOR INSERTING FILES IN USER TABLE
 var storage = multer.diskStorage({
-  destination: function (request, file, callback) {
+  destination: function(request, file, callback) {
     callback(null, "public/images");
   },
-  filename: function (request, file, callback) {
+  filename: function(request, file, callback) {
     callback(null, uuid.v4() + path.extname(file.originalname));
   },
 });
 
-var upload = multer({ storage: storage }).single("profile_image");
+var upload = multer({
+  storage: storage
+}).single("profile_image");
 // var upload = multer({ storage: storage }).fields([{ name: "user_img" }, { name: "cert_img" }]);
 
 // - - - - - - - - - - - - - - - - - - - - - - - -  - Upload Image - - - - - - -- - - - - - - - - - - - - - - - - - - - //
 
 router.post("/upload-file", (req, res) => {
-  upload(req, res, function (err) {
+  upload(req, res, function(err) {
     if (err instanceof multer.MulterError)
-      res.json({ message: "Unable to upload image" });
+      res.json({
+        message: "Unable to upload image"
+      });
     else if (err)
-      res.json({ message: "Something went wrong", error: err, success: false });
+      res.json({
+        message: "Something went wrong",
+        error: err,
+        success: false
+      });
     else {
       req.body.profile_image = {
         fileType: res.req.file.mimetype,
@@ -90,7 +101,9 @@ router.post("/create-user", (req, res) => {
   //   text: `Please Verify Your Emal ${profile_id}`, // plain text body
   //   html: "<b>Hello world?</b>", // html body
   // });
-  userSchema.findOne({ email: req.body.email }).then((data) => {
+  userSchema.findOne({
+    email: req.body.email
+  }).then((data) => {
     if (data) {
       res.json({
         message: "Email already exist",
@@ -98,7 +111,7 @@ router.post("/create-user", (req, res) => {
         status: 200,
       });
     } else {
-      user.save(function (err, data) {
+      user.save(function(err, data) {
         if (err) {
           console.log(`Error message ${err.message}`);
           res.json({
@@ -140,71 +153,77 @@ router.get("/get-all-user", (req, res) => {
       }
     });
   } else {
-    res.status(401).json({
-      status: 401,
-      success: false,
-      message: "You're not authorized to perform this action",
-    });
+    res.sendStatus(403)
   }
 });
 
 //- - - - - - - - - - - - - - LOGIN - USER - BY - USER'S - MAIL - & - PASSWORD - - - - - - - - - - - - - - - - -
 router.post("/login-user", (req, res) => {
-  userSchema.findOne({ email: req.body.email }).then((data) => {
-    let email = req.body.email;
-    let plaintext = req.body.password;
-    if (!data) {
-      res.json({ message: "User not present", success: false, status: 200 });
-    } else {
-      if (data) {
-        let hash = data.password;
-        user_id = data._id;
-        profile_id = data.profile_id;
-        userType = data.user_type;
-        month = data.dateCreated;
-        let last = month.getDay();
-        let newDate = new Date();
-        let n = newDate.getDay();
-        let d = n - last;
-        console.log("Last", last, "new", n, "Difference0", d);
-        pwd = bcrypt.compareSync(plaintext, hash);
-        if (pwd) {
-          var token = jwt.sign(
-            {
-              exp: Math.floor(Date.now() / 1000) + 43200,
-              User: true,
-              email,
-              user_id,
-              profile_id,
-              userType: userType,
-            },
-            "shhhhh"
-          );
-          res.json({
-            message: "Login Successful",
-            success: true,
-            status: 200,
-            token: token,
-            user_id: user_id,
-            profile_id: profile_id,
-            last: last,
+  try {
+    userSchema.findOne({
+      email: req.body.email
+    }).then((data) => {
+      let email = req.body.email;
+      let plaintext = req.body.password;
+      if (!data) {
+        res.json({
+          message: "User not present",
+          success: false,
+          status: 200
+        });
+      } else {
+        if (data) {
+          let hash = data.password;
+          user_id = data._id;
+          profile_id = data.profile_id;
+          userType = data.user_type;
+          month = data.dateCreated;
+          let last = month.getDay();
+          let newDate = new Date();
+          let n = newDate.getDay();
+          let d = n - last;
+          console.log("Last", last, "new", n, "Difference0", d);
+          var token = jwt.sign({
+            email,
+            user_id,
+            profile_id,
+            userType: userType,
+          }, process.env.JWT_SECRET_KEY, {
+            expiresIn: '30d'
           });
+          pwd = bcrypt.compareSync(plaintext, hash);
+          if (pwd) {
+
+            res.json({
+              message: "Login Successful",
+              success: true,
+              status: 200,
+              token: token,
+              user_id: user_id,
+              profile_id: profile_id,
+            });
+          } else {
+            res.json({
+              message: "Email or password doesn't match",
+              success: false,
+              status: 200,
+            });
+          }
         } else {
           res.json({
-            message: "Email or password doesn't match",
+            message: "Email doesn't exist",
             success: false,
             status: 200,
           });
         }
-      } else {
-        res.json({
-          message: "Email doesn't exist",
-          success: false,
-          status: 200,
-        });
       }
-    }
-  });
+    });
+  } catch (error) {
+    res.status(406).json({
+      message: error.message,
+      success: false
+    })
+  }
 });
 //- - - - - - - - - - - - - - GET - DATA - FROM - USER - MODULE - BY - BLOOD GROUP - - - - - - - - - - - - - - - - -
 router.get("/blood-all-group", (req, res) => {
@@ -219,15 +238,15 @@ router.get("/blood-all-group", (req, res) => {
           status: 200,
         });
       } else {
-        res.json({ message: "User not present", success: false, status: 200 });
+        res.json({
+          message: "User not present",
+          success: false,
+          status: 200
+        });
       }
     });
   } else {
-    res.status(401).json({
-      status: 401,
-      hassuccessed: false,
-      message: "You're not authorized to perform this action",
-    });
+    res.sendStatus(403)
   }
 });
 
@@ -238,10 +257,16 @@ router.put("/update-user", (req, res) => {
     password = req.body.password;
     req.body.password = bcrypt.hashSync(password, 10);
     if (req.body.email == "") {
-      res.json({ message: "Email is empty", success: false, status: 200 });
+      res.json({
+        message: "Email is empty",
+        success: false,
+        status: 200
+      });
     } else {
       userSchema
-        .updateOne({ _id: legit.user_id }, req.body)
+        .updateOne({
+          _id: legit.user_id
+        }, req.body)
         .then((data) => {
           if (data) {
             if (data.nModified == 0) {
@@ -270,11 +295,7 @@ router.put("/update-user", (req, res) => {
         });
     }
   } else {
-    res.status(401).json({
-      status: 401,
-      hassuccessed: false,
-      message: "You're not authorized to perform this action",
-    });
+    res.sendStatus(403)
   }
 });
 
@@ -282,9 +303,11 @@ router.put("/update-user", (req, res) => {
 router.put("/update-file", (req, res) => {
   let legit = verifyToken.verify(req.headers.authorization);
   if (legit) {
-    upload(req, res, function (err) {
+    upload(req, res, function(err) {
       if (err instanceof multer.MulterError)
-        res.json({ message: "Error in image to be uploaded" });
+        res.json({
+          message: "Error in image to be uploaded"
+        });
       else if (err)
         res.json({
           message: "Something went wrong",
@@ -298,10 +321,11 @@ router.put("/update-file", (req, res) => {
           fileName: res.req.file.filename,
         };
         userSchema
-          .findOneAndUpdate(
-            { _id: legit.user_id },
-            { profile_image: req.body.profile_image }
-          )
+          .findOneAndUpdate({
+            _id: legit.user_id
+          }, {
+            profile_image: req.body.profile_image
+          })
           .then((data) => {
             if (data) {
               res.json({
@@ -321,11 +345,7 @@ router.put("/update-file", (req, res) => {
       }
     });
   } else {
-    res.status(401).json({
-      message: "You're not authorized to perform this action",
-      success: false,
-      status: 401,
-    });
+    res.sendStatus(403)
   }
 });
 
@@ -335,10 +355,11 @@ router.put("/forget-password", (req, res) => {
   password = req.body.password;
   req.body.password = bcrypt.hashSync(password, 10);
   userSchema
-    .findOneAndUpdate(
-      { email: req.body.email },
-      { password: req.body.password }
-    )
+    .findOneAndUpdate({
+      email: req.body.email
+    }, {
+      password: req.body.password
+    })
     .then((data) => {
       console.log("Data", data);
       if (!data) {
@@ -371,9 +392,10 @@ router.put("/forget-password", (req, res) => {
 router.get("/get-user-by-id/:id", (req, res) => {
   var legit = verifyToken.verify(req.headers.authorization);
   var id = legit.id;
-  console.log("Request id", id);
   if (legit) {
-    userSchema.findById({ _id: id }).then((data) => {
+    userSchema.findById({
+      _id: id
+    }).then((data) => {
       if (data) {
         res.json({
           message: "User reteived",
@@ -390,9 +412,7 @@ router.get("/get-user-by-id/:id", (req, res) => {
       }
     });
   } else {
-    res
-      .status(401)
-      .json({ status: 200, success: false, message: "Unauthorized Request" });
+    res.sendStatus(403)
   }
 });
 //- - - - - - - - - - - - - - REQUEST FOR OTP - - - - - - - - - - - - - -
@@ -420,7 +440,10 @@ router.post("/verify", (req, res) => {
           });
         }
       } else {
-        res.json({ status: 200, message: "OTP doesn't match" });
+        res.json({
+          status: 200,
+          message: "OTP doesn't match"
+        });
       }
     }
   });
@@ -447,11 +470,7 @@ router.delete("/delete-user/:id", (req, res) => {
       }
     });
   } else {
-    res.status(401).json({
-      status: 200,
-      hassuccessed: false,
-      message: "Unauthorized Request",
-    });
+    res.sendStatus(403)
   }
 });
 

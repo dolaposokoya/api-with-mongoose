@@ -6,6 +6,9 @@ let userSchema = require("../model/user");
 let metaDataSchema = require("../model/metadata"),
   jwt = require("jsonwebtoken");
 config = require("../DB");
+var pusher = require('../config/pusher');
+
+
 
 // - - -  - - - - - - - - - - - - - - - - - - - - - -  - CREATE METADATA - - - - - - - - - - - - - - - - - - - - - - - //
 router.post("/Metadata", (req, res) => {
@@ -41,27 +44,16 @@ router.post("/Metadata", (req, res) => {
 router.get("/blood-all-group", (req, res) => {
   try {
     metaDataSchema.find().then((data) => {
-      console.log("data", data);
       if (data) {
-        res.json({
-          message: "Data retrieved",
-          data: data,
-          success: true,
-          status: 200,
-        });
+        pusher.trigger('blood', 'my-blood', { data: data });
+        res.json({ message: "Data retrieved", data: data, success: true, status: 200, });
       } else {
-        res.json({
-          message: "Unable to retrieve data",
-          success: false,
-          status: 200,
-        });
+        res.json({ message: "Unable to retrieve data", success: false, status: 200, });
       }
     });
   } catch (error) {
     if (error) {
-      res
-        .status(500)
-        .json({ message: "Error occured", success: false, status: 500 });
+      res.status(406).json({ message: error.message, success: false, status: 500 });
     }
   }
 });
@@ -81,9 +73,8 @@ router.post("/create-request", (req, res) => {
     state: req.body.state,
     hospital_name: req.body.hospital_name,
     hospital_address: req.body.hospital_address,
-    doctor_name: req.body.doctor_name,
-    hospital_mobile: req.body.hospital_mobile,
-    message: req.body.message,
+    hospital_email: req.body.hospital_email,
+    hospital_phone: req.body.hospital_phone,
   });
   if (legit) {
     userSchema
@@ -145,29 +136,28 @@ router.post("/create-request", (req, res) => {
   }
 });
 
-router.get("/get-request-by-id/:request_id", (req, res) => {
-  var legit = verifyToken.verify(req.headers.authorization);
-  if (legit) {
-    requestSchema.getRequestById(req.body, req.params, (err, data) => {
-      if (err) {
-        res.json({
-          message: "Unable to get request try again after sometime",
-          status: 200,
-          success: false,
-        });
-      } else {
-        res.json({
-          message: "Request Retrieved",
-          status: 200,
-          success: true,
-          data,
-        });
-      }
-    });
-  } else {
-    res
-      .status(401)
-      .json({ message: "Unauthorized Request", status: 200, success: false });
+router.get("/my-request", (req, res) => {
+  try {
+    var legit = verifyToken.verify(req.headers.authorization);
+    if (legit) {
+      userSchema.findOne({ email: email }).then(data => {
+        if (data) {
+          if (data.approved == false) {
+            res.json({ message: 'You request is not approved at at the moment, check after some time', success: false, status: 200 })
+          }
+          else {
+            res.json({ message: 'Request approved', success: true, status: 200 })
+          }
+        }
+        else {
+          res.json({ message: 'No user found for this request', success: false, status: 200 });
+        }
+      })
+    } else {
+      res.status(401).json({ message: "Unauthorized Request", status: 200, success: false });
+    }
+  } catch (error) {
+    res.status(406).json({ message: error.message, success: false })
   }
 });
 

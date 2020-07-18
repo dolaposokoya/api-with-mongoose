@@ -10,6 +10,8 @@
 
 # after that a node_modules folder will be installed
 
+# create a .env file, follow this steps 1)inside .env file create two variable like this JWT_SECRET_KEY and JWT_REFRESH_KEY 2) open your workspace in cmd and type node wait a few seconds 3)type require('crypto').randomBytes(64).toString('hex') a string will be generated.4)copy the string to JWT_SECRET_KEY = the string generated without quote, run same step 3 again and assing the value to JWT_REFRESH_KEY = the string generated.
+
 # when installation is done type npm start
 
 # some error might occur due to some missing dependencies search for it on google and install them in the API folder

@@ -13,15 +13,10 @@ router.post("/create-reservation", (req, res) => {
     gender: req.body.gender,
     donor_mobile: req.body.donor_mobile,
     weight: req.body.weight,
-    hospital_name: req.body.hospital_name,
-    hospital_address: req.body.hospital_address,
-    city: req.body.city,
-    pincode: req.body.pincode,
-    state: req.body.state,
     reservation_date: req.body.reservation_date,
   });
   if (legit) {
-    reservation.save(function (err, data) {
+    reservation.save(function(err, data) {
       if (err) {
         res.status(200).json({
           message: "Unable to make reservation",
@@ -37,7 +32,10 @@ router.post("/create-reservation", (req, res) => {
       }
     });
   } else {
-    res.status(401).json({ message: "Unauthorized Request" });
+    res.status(401).json({
+      message: 'Unauthorized',
+      success: false
+    })
   }
 });
 
@@ -61,9 +59,7 @@ router.get("/get-reservation-by-id/:request_id", (req, res) => {
       }
     });
   } else {
-    res
-      .status(401)
-      .json({ message: "Unauthorized Request", status: 200, success: false });
+    res.sendStatus(403)
   }
 });
 
@@ -78,13 +74,15 @@ router.put("/update-reservation-by-id/:reserve_id", (req, res) => {
           success: false,
         });
       } else {
-        res.json({ message: "Request Updated", status: 200, success: true });
+        res.json({
+          message: "Request Updated",
+          status: 200,
+          success: true
+        });
       }
     });
   } else {
-    res
-      .status(401)
-      .json({ message: "Unauthorized Request", status: 200, success: false });
+    res.sendStatus(403)
   }
 });
 

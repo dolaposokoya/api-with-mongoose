@@ -1,4 +1,8 @@
 HOST=https://bloodbank-api-v1.herokuapp.com
 PORT=http://localhost:5000
 giturl=https://git.heroku.com/bloodbank-api-v1.git
-swagger"host": "bloodbank-api-v1.herokuapp.com",
+appId=1040833
+key=d8cb17462a316c94f1de
+secret=e47a6fa3c5e7b18199f7
+cluster=ap2
+
