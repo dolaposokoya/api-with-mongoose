@@ -5,6 +5,7 @@ bin-release/
 [Oo]bj/
 [Bb]in/
 node_modules/
+/node_modules
 
 # Other files and folders
 .settings/
