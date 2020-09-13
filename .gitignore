@@ -9,8 +9,12 @@ bin-release/
 node_modules/
 
 # Other files and folders
+.env
+fghenv
+herokuapp
 .settings/
 /node_modules
+Procfile
 
 # Executables
 *.swf
