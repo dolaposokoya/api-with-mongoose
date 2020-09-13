@@ -1,5 +1,4 @@
-const multer = require("multer");
-const fs = require("fs");
+require('dotenv').config()
 const morgan = require("morgan");
 const express = require("express"),
     path = require("path"),
@@ -8,7 +7,6 @@ const express = require("express"),
     config = require("./DB");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
-const DIR = "./images";
 const cookieParser = require("cookie-parser");
 const adminRoute = require("./routes/admin.route");
 const userRoute = require("./routes/user.route");
@@ -16,6 +14,8 @@ const requestRoute = require("./routes/request.route");
 const reservationRoute = require("./routes/reservation.route");
 const app = express();
 app.use(cookieParser());
+
+
 
 app.use(bodyParser.json());
 // app.use(express.json({ limit: '100mb', extended: false }));
@@ -27,11 +27,11 @@ app.use("/request", requestRoute);
 app.use("/user", userRoute);
 app.use("/reservation", reservationRoute);
 app.use(express.static(path.join(__dirname, "public")));
-// app.use(bodyParser.json({ limit: '50mb' }));
+
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
-const port = process.env.PORT || 5000;
-app.listen(port, function() {
-    console.log("Listening on port " + port);
-});
+
+app.listen(5000, () => {
+    console.log(`App listen at http://localhost:${5000}/`)
+})

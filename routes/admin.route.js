@@ -3,14 +3,12 @@ let express = require("express"),
     verifyToken = require("../model/auth");
 let router = express.Router();
 let adminSchema = require("../model/admin");
-let jsonSchema = require("../model/json");
 let metaDataSchema = require("../model/metadata"),
     jwt = require("jsonwebtoken");
 config = require("../DB");
 var base64 = require("base-64");
 
-console.log('Schema', jsonSchema)
-    // - - -  - - - - - - - - - - - - - CREATE ADMIN - - - - - - - - - - - - - - - //
+// - - -  - - - - - - - - - - - - - CREATE ADMIN - - - - - - - - - - - - - - - //
 router.post("/create-admin", (req, res) => {
     let id = Math.floor(Math.random() * 1000 * 1000),
         profile_id = base64.encode(id);
@@ -25,7 +23,7 @@ router.post("/create-admin", (req, res) => {
         email: req.body.email,
         profile_id: profile_id,
     });
-    admin.save(function(err, data) {
+    admin.save(function (err, data) {
         if (err) {
             res.status(200).json({ message: err, success: false });
         } else if (!err) {
@@ -50,22 +48,5 @@ router.get("/blood-all-group", (req, res) => {
     });
 });
 
-
-router.post("/create-json-file", (req, res) => {
-    let id = Math.floor(Math.random() * 1000 * 1000),
-        profile_id = base64.encode(id);
-    const json = new jsonSchema({
-        profile_id: profile_id,
-        csv_file: req.body.csv_file
-    })
-    console.log('Data', req.body)
-    json.save(function(err, data) {
-        if (err) {
-            res.status(200).json({ message: err, success: false });
-        } else if (!err) {
-            res.status(200).json({ message: "File Saved to database", data: data, success: true, });
-        }
-    });
-});
 
 module.exports = router;
