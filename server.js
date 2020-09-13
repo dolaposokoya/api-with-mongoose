@@ -31,7 +31,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
-
+app.get("/", (req, res) => {
+    res.send("Api is working!");
+});
 app.listen(5000, () => {
     console.log(`App listen at http://localhost:${5000}/`)
 })
