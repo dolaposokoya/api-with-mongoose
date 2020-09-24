@@ -1,25 +1,32 @@
-"# API"
-"# API"
-"# API"
+<h2> Hey there! I'm Aditya.</h2>
 
-# Download the API folder
+<h3> 👨🏻‍💻 About Me </h3>
 
-# when the folder, in the folder name bar highlight it type cmd(command prompt)
+- 🤔 &nbsp; Exploring new technologies and developing software solutions and quick hacks.
+- 🎓 &nbsp; Studying Computer Science and Mathematics at University of Massachusetts Amherst.
+- 💼 &nbsp; Working as a Business Development Associate at VirtuBox InfoTech Private Limited.
+- 🌱 &nbsp; Learning more about Cloud Architecture, Systems Design and Artificial Intelligence.
+- ✍️ &nbsp; Pursuing Graphic Design and Blog Writing as hobbies/side hustles.
 
-# when cmd is opne type npm install
+<h3>🛠 Tech Stack</h3>
 
-# after that a node_modules folder will be installed
+- 💻 &nbsp; Python | Java | C++ | R (Statistics) | MATLAB
+- 🌐 &nbsp; HTML | CSS | JavaScript | Bootstrap | Node.js | ReactJS
+- 🛢 &nbsp; MySQL | MongoDB
+- 🔧 &nbsp; Git | Markdown | Selenium | Tidyverse
+- 🖥 &nbsp; Illustrator| Photoshop | InDesign
 
-# create a .env file, follow this steps 1)inside .env file create two variable like this JWT_SECRET_KEY and JWT_REFRESH_KEY 2) open your workspace in cmd and type node wait a few seconds 3)type require('crypto').randomBytes(64).toString('hex') a string will be generated.4)copy the string to JWT_SECRET_KEY = the string generated without quote, run same step 3 again and assing the value to JWT_REFRESH_KEY = the string generated.
+<br/>
 
-# when installation is done type npm start
+[![AVS1508's GitHub Stats](https://github-readme-stats.vercel.app/api?username=AVS1508&show_icons=true)](https://github.com/AVS1508)
 
-# some error might occur due to some missing dependencies search for it on google and install them in the API folder
+<h3> 🤝🏻 Connect with Me </h3>
 
-# To access image type localhost:5000/images/imagename without public folder
+<p align="center">
+<a href="https://www.adityavsingh.com/"><img alt="Website" src="https://img.shields.io/badge/Website-www.adityavsingh.com-blue?style=flat-square&logo=google-chrome"></a>
+<a href="https://www.linkedin.com/in/AVS1508/"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-Aditya%20Vikram%20Singh-blue?style=flat-square&logo=linkedin"></a>
+<a href="https://www.instagram.com/adityavs_/"><img alt="Instagram" src="https://img.shields.io/badge/Instagram-adityavs__-blue?style=flat-square&logo=instagram"></a>
+<a href="mailto:avsingh@umass.edu"><img alt="Email" src="https://img.shields.io/badge/Email-avsingh@umass.edu-blue?style=flat-square&logo=gmail"></a>
+</p>
 
-# You have to create your own mongodb database by visiting mongodb atlas website and also download mongodb compass community and replace proccess.env.DB_HOST with the url provided to you in db.js, and also make changes to the schema in model folder as you which
-
-# You can test this application by using localhost:5000/api/docs or download postman to test the api
-
-# if you have any problem contact me on dolaposokoya97@gmail.com
+⭐️ From [AVS1508](https://github.com/AVS1508)
