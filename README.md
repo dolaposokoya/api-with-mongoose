@@ -20,7 +20,8 @@
 <h3> 🤝🏻 Connect with Me </h3>
 
 <p align="center">
-<a href="mailto:dolaposokoya97@gmail.com"></a>
+  https://img.shields.io/Email/dolaposokoya97@gmail.com?style=social
+<a href="mailto:dolaposokoya97@gmail.com"><img alt="Email" src="https://img.shields.io/badge/Email-dolaposokoya97@gmail.com?style=flat-square&logo=gmail"></a>
 </p>
 
 ⭐️ From [dolaposokoya](https://github.com/dolaposokoya)
