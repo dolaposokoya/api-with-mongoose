@@ -20,8 +20,8 @@
 <h3> 🤝🏻 Connect with Me </h3>
 
 <p align="center">
-<a href="mailto:dolexy_one"><img alt="Twitter" src="https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2Fdolexy_one"></a>
-<a href="mailto:dolaposokoya97@gmail.com"><img alt="Email" src="https://img.shields.io/badge/Email-dolaposokoya97@gmail.com?style=flat-square&logo=gmail"></a>
+<a href="https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2Fdolexy_one"></a>
+<a href="mailto:dolaposokoya97@gmail.com"><img alt="Email" src="https://img.shields.io/badge/Email-dolaposokoya97@gmail.com-blue?style=flat-square&logo=gmail"></a>
 </p>
 
 ⭐️ From [dolaposokoya](https://github.com/dolaposokoya)
