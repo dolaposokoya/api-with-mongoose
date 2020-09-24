@@ -21,7 +21,7 @@
 
 <p align="center">
 <a href="https://www.linkedin.com/in/AVS1508/"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-Aditya%20Vikram%20Singh-blue?style=flat-square&logo=linkedin"></a>
-<a href="https://twitter.com/dolexy_one/"><img alt="Twitter" src="https://img.shields.io/badge/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2Fdolexy_one-blue?style=flat-square&logo=twitter"></a>
+<a href="https://twitter.com/dolexy_one/"><img alt="Twitter" src="https://img.shields.io/twitter-https%3A%2F%2Ftwitter.com%2Fdolexy_one-blue?style=flat-square&logo=twitter"></a>
 <a href="mailto:dolaposokoya97@gmail.com"><img alt="Email" src="https://img.shields.io/badge/Email-dolaposokoya97@gmail.com-blue?style=flat-square&logo=gmail"></a>
 </p>
 
