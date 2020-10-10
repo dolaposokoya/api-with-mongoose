@@ -1,28 +1,25 @@
-<h2> Hey there! I'm Dolapo Sokoya.</h2>
+"# API"
+"# API"
+"# API"
 
-<h3> 👨🏻‍💻 About Me </h3>
+# Download the API folder
 
-- 🤔 &nbsp; Exploring new technologies and developing software solutions and quick hacks.
-- 🎓 &nbsp; Completed Bachelor Of Computer Applications at Chaudhary Charan Singh University Meerut.
-- 🎓 &nbsp; Completed Master Of Computer Applications at Dr. A.P.J. Abdul Kalam Technical University, Lucknow.
-- 💼 &nbsp; Working as a Junior Developer at Morpheme Webnexus Private Limited.
+# when the folder, in the folder name bar highlight it type cmd(command prompt)
 
-<h3>🛠 Tech Stack</h3>
+# when cmd is opne type npm install
 
-- 🌐 &nbsp; HTML | CSS | JavaScript | ReactNative | Node.js | ReactJS
-- 🛢 &nbsp; MySQL | MongoDB
-- 🔧 &nbsp; Git 
+# after that a node_modules folder will be installed
 
-<br/>
+# create a .env file, follow this steps 1)inside .env file create two variable like this JWT_SECRET_KEY and JWT_REFRESH_KEY 2) open your workspace in cmd and type node wait a few seconds 3)type require('crypto').randomBytes(64).toString('hex') a string will be generated.4)copy the string to JWT_SECRET_KEY = the string generated without quote, run same step 3 again and assing the value to JWT_REFRESH_KEY = the string generated.
 
-[![dolaposokoya's GitHub Stats](https://github-readme-stats.vercel.app/api?username=dolaposokoya&show_icons=true)](https://github.com/dolaposokoya)
+# when installation is done type npm start
 
-<h3> 🤝🏻 Connect with Me </h3>
+# some error might occur due to some missing dependencies search for it on google and install them in the API folder
 
-<p align="center">
-<a href="https://www.linkedin.com/in/AVS1508/"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-Aditya%20Vikram%20Singh-blue?style=flat-square&logo=linkedin"></a>
-<a href="https://twitter.com/dolexy_one/"><img alt="Twitter" src="https://img.shields.io/twitter-https%3A%2F%2Ftwitter.com%2Fdolexy_one-blue?style=flat-square&logo=twitter"></a>
-<a href="mailto:dolaposokoya97@gmail.com"><img alt="Email" src="https://img.shields.io/badge/Email-dolaposokoya97@gmail.com-blue?style=flat-square&logo=gmail"></a>
-</p>
+# To access image type localhost:5000/images/imagename without public folder
 
-⭐️ From [dolaposokoya](https://github.com/dolaposokoya)
+# You have to create your own mongodb database by visiting mongodb atlas website and also download mongodb compass community and replace proccess.env.DB_HOST with the url provided to you in db.js, and also make changes to the schema in model folder as you which
+
+# You can test this application by using localhost:5000/api/docs or download postman to test the api
+
+# if you have any problem contact me on dolaposokoya97@gmail.com

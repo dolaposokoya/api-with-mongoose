@@ -12,13 +12,47 @@
   "host": "",
   "basePath": "",
   "tags": [],
-  "schemes": ["http"],
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "paths": {
-    "/request/Metadata": {
+    "File Upload": {},
+    "/api/file/uploadFile": {
       "post": {
-        "tags": ["Blood Group"],
+        "summary": "Image Inserted",
+        "tags": [
+          "Image"
+        ],
+        "consumes": "application/json",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "profile_image",
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/request/Metadata": {
+      "post": {
+        "tags": [
+          "Blood Group"
+        ],
         "required": [],
         "properties": {
           "bloodgroup": {
@@ -28,10 +62,12 @@
         }
       }
     },
-    "/request/blood-all-group": {
+    "/api/bloodgroup/bloodAllGroup": {
       "get": {
         "summary": "Select blood",
-        "tags": ["Blood Group"],
+        "tags": [
+          "Blood Group"
+        ],
         "responses": {
           "200": {
             "description": ""
@@ -39,60 +75,26 @@
         }
       }
     },
-    "/user/upload-file": {
-      "post": {
-        "summary": "Image Inserted",
-        "tags": ["User"],
-        "consumes": "application/json",
-        "produces": ["application/json"],
-        "parameters": [{
-          "in": "formData",
-          "name": "profile_image",
-          "type": "file"
-        }],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/user/update-file": {
-      "put": {
-        "summary": "Image Inserted",
-        "tags": ["User"],
-        "consumes": "application/json",
-        "produces": ["application/json"],
-        "parameters": [{
-          "name": "authorization",
-          "in": "header",
-          "required": true
-        }, {
-          "in": "formData",
-          "name": "profile_image",
-          "type": "file"
-        }],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/admin/create-admin": {
+    "/api/admin/createAdmin": {
       "post": {
         "summary": "Create Admin",
-        "tags": ["Admin"],
+        "tags": [
+          "Admin"
+        ],
         "consumes": "application/json",
-        "produces": ["application/json"],
-        "parameters": [{
-          "name": "name",
-          "in": "body",
-          "description": "create admin",
-          "schema": {
-            "$ref": "#/definitions/Admin"
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "description": "create admin",
+            "schema": {
+              "$ref": "#/definitions/Admin"
+            }
           }
-        }],
+        ],
         "responses": {
           "200": {
             "description": ""
@@ -100,64 +102,87 @@
         }
       }
     },
-    "/reservation/create-reservation": {
+    "/api/reservation/createReservation": {
       "post": {
         "summary": "Create Reservation",
-        "tags": ["Reservation"],
+        "tags": [
+          "Reservation"
+        ],
         "consumes": "application/json",
-        "produces": ["application/json"],
-        "parameters": [{
-          "name": "authorization",
-          "in": "header",
-          "required": true
-        }, {
-          "name": "name",
-          "in": "body",
-          "description": "create reservation",
-          "schema": {
-            "$ref": "#/definitions/donateblood"
-          }
-        }],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/user/create-user": {
-      "post": {
-        "summary": "Create User",
-        "tags": ["User"],
-        "consumes": "application/json",
-        "produces": ["application/json"],
-        "parameters": [{
-          "name": "name",
-          "in": "body",
-          "description": "create user",
-          "schema": {
-            "$ref": "#/definitions/User"
-          }
-        }],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/user/update-user": {
-      "put": {
-        "summary": "User Updated",
-        "tags": ["User"],
-        "consumes": "application/json",
-        "produces": ["application/json"],
-        "parameters": [{
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
             "name": "authorization",
             "in": "header",
             "required": true
           },
-
+          {
+            "name": "name",
+            "in": "body",
+            "description": "create reservation",
+            "schema": {
+              "$ref": "#/definitions/donateblood"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "user": {},
+    "/api/user/createUser": {
+      "post": {
+        "summary": "Create User",
+        "tags": [
+          "User"
+        ],
+        "consumes": "application/json",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "description": "create user",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/user/updateUser": {
+      "put": {
+        "summary": "User Updated",
+        "tags": [
+          "User"
+        ],
+        "consumes": "application/json",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "user id"
+          },
           {
             "name": "name",
             "in": "body",
@@ -174,19 +199,23 @@
         }
       }
     },
-    "/user/login-user": {
+    "/api/user/loginUser": {
       "post": {
         "summary": "Login User",
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "consumes": "multipart/form-data",
-        "parameters": [{
-          "name": "name",
-          "in": "body",
-          "description": "update an Employee detail",
-          "schema": {
-            "$ref": "#/definitions/login"
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "description": "update an Employee detail",
+            "schema": {
+              "$ref": "#/definitions/login"
+            }
           }
-        }],
+        ],
         "responses": {
           "200": {
             "description": ""
@@ -194,17 +223,21 @@
         }
       }
     },
-    "/user/forget-password": {
+    "/api/user/forgetPassword": {
       "put": {
-        "tags": ["User"],
-        "parameters": [{
-          "name": "name",
-          "in": "body",
-          "description": "forget password",
-          "schema": {
-            "$ref": "#/definitions/updatepassword"
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "description": "forget password",
+            "schema": {
+              "$ref": "#/definitions/updatepassword"
+            }
           }
-        }],
+        ],
         "responses": {
           "200": {
             "description": ""
@@ -212,15 +245,18 @@
         }
       }
     },
-    "/user/get-all-user": {
+    "/api/user/getAllUser": {
       "get": {
         "summary": "Select Employee",
-        "tags": ["User"],
-        "parameters": [{
-          "name": "authorization",
-          "in": "header",
-          "required": true
-        }],
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": ""
@@ -228,24 +264,26 @@
         }
       }
     },
-    "/user/get-user-by-id/{id}": {
-      "tags": ["User"],
-      "parameters": [{
-          "name": "authorization",
-          "in": "header",
-          "required": true
-        },
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "description": "ID of User that we want to select",
-          "type": "string"
-        }
-      ],
+    "/api/user/getUserById": {
       "get": {
         "summary": "Select User",
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "ID of User that we want to select",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": ""
@@ -253,17 +291,20 @@
         }
       }
     },
-    "/user/delete/{id}": {
+    "/api/user/deleteUser": {
       "delete": {
-        "tags": ["User"],
-        "parameters": [{
-            "name": "authorization",
-            "in": "header",
-            "required": true
-          },
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
           {
             "name": "id",
-            "in": "path",
+            "in": "query",
             "required": true,
             "description": "ID of Employee that we want to delete",
             "type": "string"
@@ -277,19 +318,18 @@
         }
       }
     },
-    "/request/create-request": {
-      "parameters": [{
-        "name": "authorization",
-        "in": "header",
-        "required": true
-      }],
+    "Request": {},
+    "/api/request/createRequest": {
       "post": {
-        "tags": ["Request Blood"],
-        "parameters": [{
-            "name": "authorization",
-            "in": "header",
-            "required": true
-          },
+        "tags": [
+          "Request Blood"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
           {
             "name": "name",
             "in": "body",
@@ -306,22 +346,32 @@
         }
       }
     },
-    "/request/update-request-by-id/{id}": {
-      "parameters": [{
-        "name": "authorization",
-        "in": "header",
-        "required": true
-      }],
+    "/api/request/updateRequestById": {
+      "parameters": [],
       "put": {
-        "tags": ["Request Blood"],
-        "parameters": [{
-          "name": "name",
-          "in": "body",
-          "description": "Update Request",
-          "schema": {
-            "$ref": "#/definitions/requestblood"
+        "tags": [
+          "Request Blood"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
           }
-        }],
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "user id"
+          },
+          {
+            "name": "name",
+            "in": "body",
+            "description": "Update Request",
+            "schema": {
+              "$ref": "#/definitions/requestblood"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": ""
@@ -329,30 +379,39 @@
         }
       }
     },
-    "/request/get-request-by-id/{id}": {
-      "tags": ["Request Blood"],
-      "parameters": [{
-          "name": "authorization",
-          "in": "header",
-          "required": true
-        },
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "description": "ID of Request that we want to select",
-          "type": "string"
-        }
-      ],
+    "/api/request/getRequestById": {
       "get": {
         "summary": "Select Request",
-        "tags": ["Request Blood"],
+        "tags": [
+          "Request Blood"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "ID of Request that we want to select",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": ""
           }
         }
       }
+    }
+  },
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "name": "token",
+      "in": "header"
     }
   },
   "definitions": {
@@ -534,7 +593,10 @@
       }
     },
     "updatepassword": {
-      "required": ["email", "password"],
+      "required": [
+        "email",
+        "password"
+      ],
       "properties": {
         "email": {
           "type": "string",
@@ -547,7 +609,10 @@
       }
     },
     "login": {
-      "required": ["email", "password"],
+      "required": [
+        "email",
+        "password"
+      ],
       "properties": {
         "email": {
           "type": "string",

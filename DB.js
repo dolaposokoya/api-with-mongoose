@@ -1,11 +1,8 @@
 const mongoose = require("mongoose");
-// const uri =
-//   "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false";
-const uri =
-  "mongodb+srv://dolaposokoya97:adedolapo97@cluster0-xmua4.mongodb.net/bloodbank";
+const URL = process.env.MONGODB_LIVE_URL || process.env.MONGODB_LOCAL_URL
 
 mongoose
-  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false})
   .then((response, error) => {
     if (response) {
       console.log("Database Connected");
@@ -18,5 +15,3 @@ mongoose
       console.log("Connection refused");
     }
   });
-
-const userSchema = require("./model/user");
