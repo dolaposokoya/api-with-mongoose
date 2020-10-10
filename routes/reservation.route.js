@@ -1,43 +1,10 @@
-let express = require("express"),
-  verifyToken = require("../model/auth");
-let router = express.Router();
-let reservationSchema = require("../model/reservation");
-config = require("../DB");
+const express = require("express");
+const router = express.Router();
+const { makeReservation } = require("../controller/reservation.controller");
+const verifyToken = require('../middleware/authorization');
 
-router.post("/create-reservation", (req, res) => {
-  var legit = verifyToken.verify(req.headers.authorization);
-  const reservation = new reservationSchema({
-    user_id: legit.user_id,
-    donor_name: req.body.donor_name,
-    age: req.body.age,
-    gender: req.body.gender,
-    donor_mobile: req.body.donor_mobile,
-    weight: req.body.weight,
-    reservation_date: req.body.reservation_date,
-  });
-  if (legit) {
-    reservation.save(function(err, data) {
-      if (err) {
-        res.status(200).json({
-          message: "Unable to make reservation",
-          error: err,
-          success: false,
-        });
-      } else {
-        res.status(200).json({
-          message: "Reservation made",
-          data: data,
-          success: true,
-        });
-      }
-    });
-  } else {
-    res.status(401).json({
-      message: 'Unauthorized',
-      success: false
-    })
-  }
-});
+router.post("/createReservation", verifyToken, makeReservation);
+
 
 router.get("/get-reservation-by-id/:request_id", (req, res) => {
   var legit = verifyToken.verify(req.headers.authorization);

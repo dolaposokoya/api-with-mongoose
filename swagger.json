@@ -28,7 +28,7 @@
         }
       }
     },
-    "/request/blood-all-group": {
+    "/request/bloodAllGroup": {
       "get": {
         "summary": "Select blood",
         "tags": ["Blood Group"],
@@ -39,35 +39,13 @@
         }
       }
     },
-    "/user/upload-file": {
+    "/user/uploadFile": {
       "post": {
         "summary": "Image Inserted",
         "tags": ["User"],
         "consumes": "application/json",
         "produces": ["application/json"],
         "parameters": [{
-          "in": "formData",
-          "name": "profile_image",
-          "type": "file"
-        }],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/user/update-file": {
-      "put": {
-        "summary": "Image Inserted",
-        "tags": ["User"],
-        "consumes": "application/json",
-        "produces": ["application/json"],
-        "parameters": [{
-          "name": "authorization",
-          "in": "header",
-          "required": true
-        }, {
           "in": "formData",
           "name": "profile_image",
           "type": "file"
@@ -100,7 +78,7 @@
         }
       }
     },
-    "/reservation/create-reservation": {
+    "/reservation/createReservation": {
       "post": {
         "summary": "Create Reservation",
         "tags": ["Reservation"],
@@ -125,7 +103,7 @@
         }
       }
     },
-    "/user/create-user": {
+    "/user/createUser": {
       "post": {
         "summary": "Create User",
         "tags": ["User"],
@@ -146,7 +124,7 @@
         }
       }
     },
-    "/user/update-user": {
+    "/user/updateUser": {
       "put": {
         "summary": "User Updated",
         "tags": ["User"],
@@ -174,7 +152,7 @@
         }
       }
     },
-    "/user/login-user": {
+    "/user/loginUser": {
       "post": {
         "summary": "Login User",
         "tags": ["User"],
@@ -194,7 +172,7 @@
         }
       }
     },
-    "/user/forget-password": {
+    "/user/forgetPassword": {
       "put": {
         "tags": ["User"],
         "parameters": [{
@@ -212,7 +190,7 @@
         }
       }
     },
-    "/user/get-all-user": {
+    "/user/getAllUser": {
       "get": {
         "summary": "Select Employee",
         "tags": ["User"],
@@ -228,7 +206,7 @@
         }
       }
     },
-    "/user/get-user-by-id/{id}": {
+    "/user/getUserById": {
       "tags": ["User"],
       "parameters": [{
           "name": "authorization",
@@ -253,7 +231,7 @@
         }
       }
     },
-    "/user/delete/{id}": {
+    "/user/deleteUser": {
       "delete": {
         "tags": ["User"],
         "parameters": [{
@@ -277,7 +255,7 @@
         }
       }
     },
-    "/request/create-request": {
+    "/request/createRequest": {
       "parameters": [{
         "name": "authorization",
         "in": "header",
@@ -306,7 +284,7 @@
         }
       }
     },
-    "/request/update-request-by-id/{id}": {
+    "/request/updateRequestById": {
       "parameters": [{
         "name": "authorization",
         "in": "header",
@@ -329,7 +307,7 @@
         }
       }
     },
-    "/request/get-request-by-id/{id}": {
+    "/request/getRequestById": {
       "tags": ["Request Blood"],
       "parameters": [{
           "name": "authorization",

@@ -64,11 +64,11 @@ var userSchema = new Schema({
     approved: {
         type: Boolean,
         default: false
-    },
-    dateCreated: {
-        type: Date,
-        default: Date.now,
-    },
-});
+    }
+},
+    {
+        versionKey: false,
+        timestamps: true
+    });
 
 module.exports = mongoose.model("users", userSchema);
