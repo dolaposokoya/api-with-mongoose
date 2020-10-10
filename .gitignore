@@ -11,8 +11,6 @@ node_modules/
 /dist
 
 # misc
-fghenv
-herokuapp
 .env
 .DS_Store
 .env.local
