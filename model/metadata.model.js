@@ -17,6 +17,11 @@ var metadataSchema = new Schema({
     required: false,
     unique: false,
   },
-});
+},
+  {
+    versionKey: false,
+    timestamps: true
+  }
+);
 
 module.exports = mongoose.model("metadata", metadataSchema);

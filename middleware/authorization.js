@@ -1,6 +1,6 @@
 const statusMessages = require('../config/appConstants')
 const token = require('../config/auth');
-const userSchema = require("../model/user");
+const userSchema = require("../model/user.model");
 
 
 module.exports = async (req, res, next) => {

@@ -27,7 +27,12 @@ var adminSchema = new Schema({
     password: {
         type: String,
     },
-});
+},
+    {
+        versionKey: false,
+        timestamps: true
+    }
+);
 
 
 module.exports = mongoose.model("admin", adminSchema);

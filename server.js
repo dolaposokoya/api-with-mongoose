@@ -12,6 +12,8 @@ const adminRoute = require("./routes/admin.route");
 const userRoute = require("./routes/user.route");
 const requestRoute = require("./routes/request.route");
 const reservationRoute = require("./routes/reservation.route");
+const bloodgroupRoute = require("./routes/bloodgroup.route");
+const fileRoute = require("./routes/file.route");
 const app = express();
 
 
@@ -23,11 +25,13 @@ app.use(bodyParser.json());
 // app.use(express.json({ limit: '100mb', extended: false }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: false }));
 app.use(cors());
-app.use(morgan("combined"));
-app.use("/admin", adminRoute); //user table
-app.use("/request", requestRoute);
-app.use("/user", userRoute);
-app.use("/reservation", reservationRoute);
+// app.use(morgan("combined"));
+app.use("/api/admin", adminRoute);
+app.use("/api/request", requestRoute);
+app.use("/api/user", userRoute);
+app.use("/api/reservation", reservationRoute);
+app.use("/api/bloodgroup", bloodgroupRoute);
+app.use("/api/file", fileRoute);
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));

@@ -46,6 +46,11 @@ var reservationSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-});
+},
+  {
+    versionKey: false,
+    timestamps: true
+  }
+);
 
 module.exports = mongoose.model("reservation", reservationSchema);

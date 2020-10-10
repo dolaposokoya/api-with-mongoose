@@ -1,6 +1,6 @@
 const multer = require("multer");
 const path = require("path");
-var uuid = require("uuid");
+const { v4: uuidv4 } = require('uuid');
 const statusMessages = require('../config/appConstants')
 
 // USING MULTER FOR INSERTING FILES IN USER TABLE
@@ -9,7 +9,8 @@ const storage = multer.diskStorage({
         callback(null, "public/images");
     },
     filename: function (request, file, callback) {
-        callback(null, uuid.v4() + path.extname(file.originalname));
+        const fileUrl = uuidv4() + path.extname(file.originalname)
+        callback(null, fileUrl);
     },
 });
 

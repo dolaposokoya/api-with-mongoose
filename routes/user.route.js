@@ -2,13 +2,8 @@ require('dotenv').config()
 const express = require("express");
 const router = express.Router();
 const { findUser, registerUser, getAllUser, getOneUser, loginUser, allGroup, updateUser, forgotPassword, deleteUser } = require('../controller/user.controller');
-const { imageUpload } = require('../controller/image.controller');
 const verifyToken = require('../middleware/authorization');
 
-
-// - - - - - - - - - - - - - - - - - - - - - - - -  - Upload Image - - - - - - -- - - - - - - - - - - - - - - - - - - - //
-
-router.post("/uploadFile", imageUpload);
 
 //- - - - - - - - - - - - - - INSERT - DATA - IN - USER - TABLE - - - - - - - - - - - - - -
 router.post("/createUser", findUser, registerUser);

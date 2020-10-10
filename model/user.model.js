@@ -2,39 +2,18 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-    profile_id: {
-        type: String,
-    },
-    first_name: {
-        type: String,
-    },
-    last_name: {
-        type: String,
-    },
-    gender: {
-        type: String,
-    },
-    username: {
-        type: String,
-    },
-    age: {
-        type: Number,
-    },
-    user_type: {
-        type: String,
-        default: "user",
-    },
-    profile_image: {
-        type: Object,
-    },
-    email: {
-        type: String,
-    },
-    password: {
-        type: String,
-    },
-    mobile: {
-        type: String,
+    profile_id: { type: String },
+    first_name: { type: String },
+    last_name: { type: String },
+    gender: { type: String },
+    blood_group: { type: String },
+    username: { type: String },
+    age: { type: Number },
+    user_type: { type: String, default: "user" },
+    profile_image: { type: Object },
+    email: { type: String },
+    password: { type: String },
+    mobile: {        type: String,
     },
     date_of_birth: {
         type: Date

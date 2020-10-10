@@ -45,6 +45,11 @@ var requestSchema = new Schema({
     type: String,
     default: "Not Approved",
   },
-});
+},
+  {
+    versionKey: false,
+    timestamps: true
+  }
+);
 
 module.exports = mongoose.model("requests", requestSchema);

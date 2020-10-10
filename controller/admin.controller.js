@@ -1,5 +1,4 @@
-const adminSchema = require("../model/admin");
-const metaDataSchema = require("../model/metadata");
+const adminSchema = require("../model/admin.model");
 const { encryptPassword } = require('../utilities/universalFunctions');
 const random = require('crypto')
 const statusMessages = require('../config/appConstants')
@@ -33,23 +32,7 @@ const createAdmin = async (req, res) => {
     }
 }
 
-const getAllGroup = async (req, res) => {
-    try {
-        const response = await metaDataSchema.find()
-        if (response) {
-            statusMessages.SUCCESS_MSG.SUCCESS.data = response
-            res.json(statusMessages.SUCCESS_MSG.SUCCESS)
-        } else {
-            res.status(500).json(statusMessages.ERROR_MSG.UNABLE_TO_RETRIEVE)
-        }
-    }
-    catch (error) {
-        statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
-        res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
-    }
-}
 
 module.exports = {
     createAdmin,
-    getAllGroup
 }

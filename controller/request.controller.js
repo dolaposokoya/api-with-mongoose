@@ -1,6 +1,5 @@
-const userSchema = require("../model/user");
+const userSchema = require("../model/user.model");
 const nodemailer = require("nodemailer");
-const base64 = require("base-64");
 const statusMessages = require('../config/appConstants')
 
 
@@ -63,6 +62,9 @@ const myRequest = async (req, res) => {
         res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
     }
 }
+
+
+
 module.exports = {
     checkRequest,
     makeRequest,

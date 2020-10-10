@@ -1,7 +1,7 @@
 "use strict";
 const { encryptPassword, verifyPassword } = require('../utilities/universalFunctions');
 const { generateToken } = require('../config/auth')
-const userSchema = require("../model/user");
+const userSchema = require("../model/user.model");
 const nodemailer = require("nodemailer");
 const random = require('crypto')
 const statusMessages = require('../config/appConstants')
@@ -80,8 +80,8 @@ const loginUser = async (req, res) => {
 
 const getOneUser = async (req, res) => {
     try {
-        const { _id } = req.query
-        const response = await userSchema.findById({ _id: _id })
+        const { id } = req.query
+        const response = await userSchema.findById({ _id: id })
         if (response) {
             statusMessages.SUCCESS_MSG.SUCCESS.data = response
             res.json(statusMessages.SUCCESS_MSG.SUCCESS)
@@ -114,7 +114,8 @@ const getAllUser = async (req, res) => {
 
 const allGroup = async (req, res) => {
     try {
-        const response = await userSchema.find()
+        const { bloodGroup } = req.body
+        const response = await userSchema.find({ blood_group: bloodGroup })
         if (response) {
             statusMessages.SUCCESS_MSG.SUCCESS.data = response
             res.json(statusMessages.SUCCESS_MSG.SUCCESS)
@@ -132,16 +133,15 @@ const allGroup = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const { password } = req.body;
-        const { _id } = req.query;
+        const { id } = req.query;
         const hash = await encryptPassword(password);
         if (hash) {
-            const response = await userSchema.findByIdAndUpdate({ _id: _id }, req.body, { returnOriginal: false })
-            console.log('response', response)
-            if (response || (response.nModified === 0 && response.n === 0)) {
-                res.json(statusMessages.ERROR_MSG.UNABLE_TO_UPDATE)
-            } else {
+            const response = await userSchema.findByIdAndUpdate({ _id: id }, req.body, { returnOriginal: false })
+            if (response) {
                 statusMessages.SUCCESS_MSG.SUCCESS.data = response
                 res.json(statusMessages.SUCCESS_MSG.SUCCESS)
+            } else {
+                res.json(statusMessages.ERROR_MSG.UNABLE_TO_UPDATE)
             }
         }
         else {

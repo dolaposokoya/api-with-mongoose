@@ -1,4 +1,4 @@
-const reservationSchema = require("../model/reservation");
+const reservationSchema = require("../model/reservation.model");
 const statusMessages = require('../config/appConstants')
 
 
