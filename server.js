@@ -22,10 +22,9 @@ app.use(cookieParser());
 
 const PORT = process.env.PORT || 5000
 app.use(bodyParser.json());
-// app.use(express.json({ limit: '100mb', extended: false }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: false }));
 app.use(cors());
-app.use(morgan("combined"));
+// app.use(morgan("combined"));
 app.use("/api/admin", adminRoute);
 app.use("/api/request", requestRoute);
 app.use("/api/user", userRoute);

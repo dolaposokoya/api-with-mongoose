@@ -26,18 +26,23 @@
     "File Upload": {},
     "/api/file/uploadFile": {
       "post": {
-        "summary": "Image Inserted",
+        "summary": "File Upload",
         "tags": [
-          "Image"
+          "File"
         ],
         "consumes": "application/json",
         "produces": [
           "application/json"
         ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "formData",
-            "name": "profile_image",
+            "name": "file",
             "type": "file"
           }
         ],
@@ -68,6 +73,11 @@
         "tags": [
           "Blood Group"
         ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": ""
@@ -85,6 +95,11 @@
         "produces": [
           "application/json"
         ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "name",
@@ -92,38 +107,6 @@
             "description": "create admin",
             "schema": {
               "$ref": "#/definitions/Admin"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/reservation/createReservation": {
-      "post": {
-        "summary": "Create Reservation",
-        "tags": [
-          "Reservation"
-        ],
-        "consumes": "application/json",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": true
-          },
-          {
-            "name": "name",
-            "in": "body",
-            "description": "create reservation",
-            "schema": {
-              "$ref": "#/definitions/donateblood"
             }
           }
         ],
@@ -144,6 +127,11 @@
         "consumes": "application/json",
         "produces": [
           "application/json"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
         ],
         "parameters": [
           {
@@ -206,6 +194,11 @@
           "User"
         ],
         "consumes": "multipart/form-data",
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "name",
@@ -227,6 +220,11 @@
       "put": {
         "tags": [
           "User"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
         ],
         "parameters": [
           {
@@ -318,6 +316,124 @@
         }
       }
     },
+    "Reservation": {},
+    "/api/reservation/createReservation": {
+      "post": {
+        "summary": "Create Reservation",
+        "tags": [
+          "Reservation"
+        ],
+        "consumes": "application/json",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "description": "create reservation",
+            "schema": {
+              "$ref": "#/definitions/donateblood"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/reservation/getReservationById": {
+      "get": {
+        "summary": "Select Reservation",
+        "tags": [
+          "Reservation"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "ID of Reservation that we want to select",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/reservation/updateReservationById": {
+      "put": {
+        "summary": "Create Reservation",
+        "tags": [
+          "Reservation"
+        ],
+        "consumes": "application/json",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "ID of Reservation that we want to update",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "body",
+            "description": "create reservation",
+            "schema": {
+              "$ref": "#/definitions/donateblood"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/reservation/myReseravations": {
+      "get": {
+        "summary": "Select Reservation",
+        "tags": [
+          "Reservation"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "Request": {},
     "/api/request/createRequest": {
       "post": {
@@ -405,9 +521,31 @@
           }
         }
       }
+    },
+    "/api/request/myRequest": {
+      "get": {
+        "summary": "Select Request",
+        "tags": [
+          "Request Blood"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
     }
   },
   "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic"
+    },
     "bearerAuth": {
       "type": "apiKey",
       "name": "token",

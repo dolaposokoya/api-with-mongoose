@@ -1,6 +1,6 @@
 "use strict";
 const { encryptPassword, verifyPassword } = require('../utilities/universalFunctions');
-const { generateToken } = require('../config/auth')
+const { generateToken } = require('../config/jwtAuthorization')
 const userSchema = require("../model/user.model");
 const nodemailer = require("nodemailer");
 const random = require('crypto')
@@ -181,14 +181,15 @@ const forgotPassword = async (req, res) => {
 }
 
 
-const deleteUser = async (req, res) => {
+const deleteUser = async (req, res, next) => {
     try {
-        const { _id } = req.query
-        const response = await userSchema.findByIdAndDelete({ _id: _id })
+        const { id } = req.query
+        const response = await userSchema.findByIdAndDelete({ _id: id })
         if (response) {
-            res.json(statusMessages.SUCCESS_MSG.DELETE)
+            req.file = response.profile_image.fileName
+            next();
         } else {
-            res.json(statusMessages.ERROR_MSG.SOMETHING_WENT_WRONG)
+            res.json(statusMessages.ERROR_MSG.DATA_NOT_FOUND)
         }
     } catch (error) {
         statusMessages.ERROR_MSG.IMP_ERROR.message = error.message

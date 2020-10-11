@@ -76,7 +76,7 @@ const statusMessages = {
         UNABLE_TO_UPDATE: {
             status: 404,
             success: false,
-            message: "Unable To Update",
+            message: "Unable To Make Request",
             type: "UNABLE_TO_UPDATE"
         },
         UNABLE_TO_RETRIEVE: {

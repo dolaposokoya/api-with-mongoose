@@ -1,5 +1,5 @@
 const statusMessages = require('../config/appConstants')
-const token = require('../config/auth');
+const token = require('../config/jwtAuthorization');
 const userSchema = require("../model/user.model");
 
 

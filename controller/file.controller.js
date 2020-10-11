@@ -2,11 +2,12 @@ const multer = require("multer");
 const path = require("path");
 const { v4: uuidv4 } = require('uuid');
 const statusMessages = require('../config/appConstants')
+const fs = require('fs')
 
 // USING MULTER FOR INSERTING FILES IN USER TABLE
 const storage = multer.diskStorage({
     destination: function (request, file, callback) {
-        callback(null, "public/images");
+        callback(null, "public/files");
     },
     filename: function (request, file, callback) {
         const fileUrl = uuidv4() + path.extname(file.originalname)
@@ -14,9 +15,9 @@ const storage = multer.diskStorage({
     },
 });
 
-const upload = multer({ storage: storage }).single("profile_image");
+const upload = multer({ storage: storage }).single("file");
 
-const imageUpload = (req, res) => {
+const fileUpload = (req, res) => {
     try {
         upload(req, res, (err) => {
             if (err instanceof multer.MulterError)
@@ -40,6 +41,33 @@ const imageUpload = (req, res) => {
     }
 }
 
+const deleteFile = async (req, res) => {
+    try {
+        const imagePath = "public/files";
+        const filePath = req.file;
+        if (fs.existsSync(`${imagePath}/${filePath}`)) {
+            fs.unlink(`${imagePath}/${filePath}`, (error) => {
+                if (error) {
+                    statusMessages.ERROR_MSG.SOMETHING_WENT_WRONG.error = error
+                    res.json(statusMessages.ERROR_MSG.SOMETHING_WENT_WRONG);
+                }
+                else {
+                    res.json(statusMessages.SUCCESS_MSG.DELETE)
+                }
+            });
+        }
+        else {
+            res.json(statusMessages.SUCCESS_MSG.DELETE)
+        }
+    }
+    catch (error) {
+        statusMessages.ERROR_MSG.IMP_ERROR.error = error
+        res.json(statusMessages.ERROR_MSG.IMP_ERROR);
+    }
+}
+
+
 module.exports = {
-    imageUpload
+    fileUpload,
+    deleteFile
 }
