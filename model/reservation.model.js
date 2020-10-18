@@ -42,10 +42,6 @@ var reservationSchema = new Schema({
   reservation_date: {
     type: Date,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
 },
   {
     versionKey: false,

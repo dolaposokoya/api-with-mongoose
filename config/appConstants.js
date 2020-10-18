@@ -3,7 +3,7 @@ const statusMessages = {
         IMP_ERROR: {
             status: 500,
             success: false,
-            message: '',
+            message: 'Implementation Error',
             type: 'IMP_ERROR'
         },
         DATA_NOT_FOUND: {

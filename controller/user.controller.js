@@ -25,6 +25,7 @@ const findUser = async (req, res, next) => {
 const registerUser = async (req, res) => {
     try {
         const id = random.randomBytes(4).toString('hex')
+        console.log('req.body', req.body)
         const user = new userSchema(req.body);
         const hash = await encryptPassword(user.password);
         if (hash) {
