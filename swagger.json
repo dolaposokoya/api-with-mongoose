@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "swagger": "2.0",
   "info": {
@@ -890,4 +891,760 @@
       }
     }
   }
+=======
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Blood Bank",
+    "description": "Manage the Api",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "",
+  "basePath": "",
+  "tags": [],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "File Upload": {},
+    "/api/file/uploadFile": {
+      "post": {
+        "summary": "Image Inserted",
+        "tags": [
+          "Image"
+        ],
+        "consumes": "application/json",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "profile_image",
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/request/Metadata": {
+      "post": {
+        "tags": [
+          "Blood Group"
+        ],
+        "required": [],
+        "properties": {
+          "bloodgroup": {
+            "type": "object",
+            "uniqueItems": false
+          }
+        }
+      }
+    },
+    "/api/bloodgroup/bloodAllGroup": {
+      "get": {
+        "summary": "Select blood",
+        "tags": [
+          "Blood Group"
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/admin/createAdmin": {
+      "post": {
+        "summary": "Create Admin",
+        "tags": [
+          "Admin"
+        ],
+        "consumes": "application/json",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "description": "create admin",
+            "schema": {
+              "$ref": "#/definitions/Admin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/reservation/createReservation": {
+      "post": {
+        "summary": "Create Reservation",
+        "tags": [
+          "Reservation"
+        ],
+        "consumes": "application/json",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "name",
+            "in": "body",
+            "description": "create reservation",
+            "schema": {
+              "$ref": "#/definitions/donateblood"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "user": {},
+    "/api/user/createUser": {
+      "post": {
+        "summary": "Create User",
+        "tags": [
+          "User"
+        ],
+        "consumes": "application/json",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "description": "create user",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/user/updateUser": {
+      "put": {
+        "summary": "User Updated",
+        "tags": [
+          "User"
+        ],
+        "consumes": "application/json",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "user id"
+          },
+          {
+            "name": "name",
+            "in": "body",
+            "description": "update user detail",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/user/loginUser": {
+      "post": {
+        "summary": "Login User",
+        "tags": [
+          "User"
+        ],
+        "consumes": "multipart/form-data",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "description": "update an Employee detail",
+            "schema": {
+              "$ref": "#/definitions/login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/user/forgetPassword": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "description": "forget password",
+            "schema": {
+              "$ref": "#/definitions/updatepassword"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/user/getAllUser": {
+      "get": {
+        "summary": "Select Employee",
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/user/getUserById": {
+      "get": {
+        "summary": "Select User",
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "ID of User that we want to select",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/user/deleteUser": {
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "ID of Employee that we want to delete",
+            "type": "string"
+          }
+        ],
+        "summary": "Delete detail one-by-one of Employee!",
+        "responses": {
+          "200": {
+            "description": "Deleted"
+          }
+        }
+      }
+    },
+    "Request": {},
+    "/api/request/createRequest": {
+      "post": {
+        "tags": [
+          "Request Blood"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "description": "Request Blood",
+            "schema": {
+              "$ref": "#/definitions/requestblood"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/request/updateRequestById": {
+      "parameters": [],
+      "put": {
+        "tags": [
+          "Request Blood"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "user id"
+          },
+          {
+            "name": "name",
+            "in": "body",
+            "description": "Update Request",
+            "schema": {
+              "$ref": "#/definitions/requestblood"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/request/getRequestById": {
+      "get": {
+        "summary": "Select Request",
+        "tags": [
+          "Request Blood"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "ID of Request that we want to select",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "name": "token",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Admin": {
+      "required": [
+        "first_name",
+        "last_name",
+        "username",
+        "profile_image",
+        "email",
+        "password"
+      ],
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "last_name": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "username": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "profile_image": {
+          "type": "object",
+          "uniqueItems": false
+        },
+        "email": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "password": {
+          "type": "string",
+          "uniqueItems": false
+        }
+      }
+    },
+    "User": {
+      "required": [
+        "first_name",
+        "last_name",
+        "username",
+        "profile_image",
+        "email",
+        "city",
+        "state",
+        "pincode",
+        "blood_group",
+        "weight",
+        "mobile",
+        "age",
+        "gender",
+        "password"
+      ],
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "last_name": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "city": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "state": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "pincode": {
+          "type": "number",
+          "uniqueItems": false
+        },
+        "username": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "profile_image": {
+          "type": "object",
+          "uniqueItems": false
+        },
+        "email": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "weight": {
+          "type": "number",
+          "uniqueItems": false
+        },
+        "blood_group": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "mobile": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "age": {
+          "type": "number",
+          "uniqueItems": false
+        },
+        "gender": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "password": {
+          "type": "string",
+          "uniqueItems": false
+        }
+      }
+    },
+    "UpdateUser": {
+      "required": [
+        "first_name",
+        "last_name",
+        "username",
+        "email",
+        "weight",
+        "blood_group",
+        "profile_image",
+        "mobile",
+        "age",
+        "gender",
+        "password"
+      ],
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "last_name": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "username": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "image": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "email": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "mobile": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "age": {
+          "type": "number",
+          "uniqueItems": false
+        },
+        "gender": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "password": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "weight": {
+          "type": "number",
+          "uniqueItems": false
+        },
+        "blood_group": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "profile_image": {
+          "type": "object",
+          "uniqueItems": false
+        }
+      }
+    },
+    "updatepassword": {
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "uniqueItems": "false"
+        },
+        "password": {
+          "type": "string",
+          "uniqueItems": "false"
+        }
+      }
+    },
+    "login": {
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "uniqueItems": "false"
+        },
+        "password": {
+          "type": "string",
+          "uniqueItems": "false"
+        }
+      }
+    },
+    "donateblood": {
+      "required": [
+        "donor_name",
+        "age",
+        "gender",
+        "donor_mobile",
+        "weight",
+        "hospital_name",
+        "hospital_address",
+        "city",
+        "pincode",
+        "state",
+        "reservation_date"
+      ],
+      "properties": {
+        "donor_name": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "age": {
+          "type": "number",
+          "uniqueItems": false
+        },
+        "gender": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "donor_mobile": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "weight": {
+          "type": "number",
+          "uniqueItems": false
+        },
+        "hospital_name": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "hospital_address": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "city": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "pincode": {
+          "type": "number",
+          "uniqueItems": false
+        },
+        "state": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "reservation_date": {
+          "type": "string",
+          "uniqueItems": false
+        }
+      }
+    },
+    "requestblood": {
+      "required": [
+        "patient_name",
+        "patient_mobile",
+        "patient_email",
+        "blood_group",
+        "doctor_name",
+        "hospital_name",
+        "hospital_address",
+        "city",
+        "pincode",
+        "state",
+        "hospital_mobile",
+        "date_needed"
+      ],
+      "properties": {
+        "patient_name": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "patient_mobile": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "patient_email": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "blood_group": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "city": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "pincode": {
+          "type": "number",
+          "uniqueItems": false
+        },
+        "state": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "hospital_name": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "hospital_address": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "doctor_name": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "hospital_mobile": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "date_needed": {
+          "type": "string",
+          "uniqueItems": false
+        }
+      }
+    }
+  }
+>>>>>>> 19b8d41739230428bf5fb61908e3dac61d7e42eb
 }
