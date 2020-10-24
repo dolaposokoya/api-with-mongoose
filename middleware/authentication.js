@@ -11,9 +11,8 @@ module.exports = {
             const { password, ...userWithoutPassword } = user;
             statusMessages.SUCCESS_MSG.SUCCESS.data = userWithoutPassword
             return statusMessages.SUCCESS_MSG.SUCCESS;
-        }
-        else {
+        } else {
             return statusMessages.ERROR_MSG.DATA_NOT_FOUND
         }
     }
-}  
+}

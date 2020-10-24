@@ -20,11 +20,11 @@ const app = express();
 app.use(cookieParser());
 
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5100
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: false }));
 app.use(cors())
-// app.use(morgan("combined"));
+    // app.use(morgan("combined"));
 app.use("/api/admin", adminRoute);
 app.use("/api/request", requestRoute);
 app.use("/api/user", userRoute);
@@ -42,4 +42,3 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
     console.log(`App listen at http://localhost:${PORT}/`)
 })
-
