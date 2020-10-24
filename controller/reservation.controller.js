@@ -2,9 +2,9 @@ const reservationSchema = require("../model/reservation.model");
 const statusMessages = require('../config/appConstants')
 
 
-const makeReservation = async (req, res) => {
+const makeReservation = async(req, res) => {
     try {
-        const reservation = new reservationSchema();
+        const reservation = new reservationSchema(req.body);
         reservation.user_id = req.user._id
         const response = await reservation.save()
         if (response) {
@@ -13,14 +13,13 @@ const makeReservation = async (req, res) => {
         } else {
             res.json(statusMessages.ERROR_MSG.UNABLE_TO_REGISTER)
         }
-    }
-    catch (error) {
+    } catch (error) {
         statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
         res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
     }
 }
 
-const getOneReservation = async (req, res) => {
+const getOneReservation = async(req, res) => {
     try {
         const { id } = req.query
         const response = await reservationSchema.findById({ _id: id })
@@ -30,14 +29,13 @@ const getOneReservation = async (req, res) => {
         } else {
             res.json(statusMessages.ERROR_MSG.DATA_NOT_FOUND)
         }
-    }
-    catch (error) {
+    } catch (error) {
         statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
         res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
     }
 }
 
-const updateReservation = async (req, res) => {
+const updateReservation = async(req, res) => {
     try {
         const { id } = req.query
         req.body.user_id = req.user._id
@@ -48,14 +46,13 @@ const updateReservation = async (req, res) => {
         } else {
             res.json(statusMessages.ERROR_MSG.DATA_NOT_FOUND)
         }
-    }
-    catch (error) {
+    } catch (error) {
         statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
         res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
     }
 }
 
-const getMyReservations = async (req, res) => {
+const getMyReservations = async(req, res) => {
     try {
         const user_id = req.user._id
         const response = await reservationSchema.find({ user_id: user_id })
@@ -65,8 +62,7 @@ const getMyReservations = async (req, res) => {
         } else {
             res.json(statusMessages.ERROR_MSG.DATA_NOT_FOUND)
         }
-    }
-    catch (error) {
+    } catch (error) {
         statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
         res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
     }

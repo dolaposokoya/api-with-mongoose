@@ -5,7 +5,6 @@ const statusMessages = require('../config/appConstants');
 // Email Transport //
 const sendRecoveryMail = async (req, res) => {
     try {
-        let testAccount = await nodemailer.createTestAccount();
         const host = "smtp.ethereal.email"
         const smtpTransport = nodemailer.createTransport({
             service: "gmail",
@@ -21,30 +20,27 @@ const sendRecoveryMail = async (req, res) => {
         let date = new Date().getDate()
         const month = new Date().getMonth()
         const year = new Date().getFullYear()
+        const day = new Date().getDay()
+        const dayArray = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
         date = date < 10 ? `0${date}` : `${date}`
         const monthArray = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-        console.log(new Date().getDate())
-        const link = `http://${host}/`;
-        const text = `You have made a request for password recovery on ${monthArray[month]} ${date} ${year} check your mail for the link  ${link}, if you didn't initiate this request contact our admin.`;
+        const link = `http://localhost:5000/index.html`;
+        const text = `You have made a request for password recovery on ${dayArray[day]}, ${date} ${monthArray[month]}, ${year} click this 👉${link} to begin the process, if you didn't initiate this request contact our admin.`;
         const mailOptions = {
             from: "Agent Gateway",
             to: email,
             subject: "Passwod Recovery",
-            html: `<h1>Welcome</h1><h3>${text}</h3><p>Thanks & Regards!</p>`
+            html: `<h3>${text}</h3><h4>Thanks & Regards!</h4>`
         }
         const response = await smtpTransport.sendMail(mailOptions);
-        if (!response) {
-            console.log('err :', response);
-            statusMessages.ERROR_MSG.SOMETHING_WENT_WRONG.error = response
-            res.json(statusMessages.ERROR_MSG.SOMETHING_WENT_WRONG)
+        if (response) {
+            res.json(statusMessages.SUCCESS_MSG.PWD_RECOVERY)
         }
         else {
-            statusMessages.SUCCESS_MSG.PWD_RECOVERY.data = response
-            res.json(statusMessages.SUCCESS_MSG.PWD_RECOVERY)
+            res.json(statusMessages.ERROR_MSG.SOMETHING_WENT_WRONG)
         }
     }
     catch (error) {
-        console.log('error', error)
         statusMessages.ERROR_MSG.IMP_ERROR.error = error
         res.json(statusMessages.ERROR_MSG.IMP_ERROR)
     }

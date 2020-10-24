@@ -100,7 +100,7 @@ const statusMessages = {
         REQUEST_NOT_APPROVED: {
             status: 404,
             success: false,
-            message: "You request is not approved at at the moment, check after some time",
+            message: "Your request is yet to be approved",
             type: "REQUEST_NOT_APPROVED"
         },
         NUMBER_EXCEDED: {
@@ -129,13 +129,13 @@ const statusMessages = {
         DELETE: {
             status: 200,
             success: true,
-            message: 'Record has been deleted successfully',
+            message: 'Record deleted',
             type: 'DELETE'
         },
         REQUEST_RESPONSE: {
             status: 200,
             success: true,
-            message: 'We will get back to you when your request is met, check back after 24 hour',
+            message: 'Success',
             type: 'REQUEST_RESPONSE'
         },
         REQUEST_APPROVED: {
