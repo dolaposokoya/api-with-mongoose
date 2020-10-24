@@ -1,8 +1,8 @@
 const statusMessages = require('../config/appConstants')
 const password = process.env.password
 const email = process.env.email
-const id = process.env.id
-const users = [{ id, email, password }];
+const userid = process.env.userid
+const users = [{ userid, email, password }];
 
 module.exports = {
     async authenticate({ email, password }) {
