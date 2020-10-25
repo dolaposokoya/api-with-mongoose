@@ -218,10 +218,9 @@
                 }
             }
         },
-
         "/api/user/getAllUser": {
             "get": {
-                "summary": "Select User",
+                "summary": "Select Employee",
                 "tags": [
                     "User"
                 ],
@@ -229,11 +228,6 @@
                     "bearerAuth": []
                 }],
                 "parameters": [{
-                        "name": "search",
-                        "in": "query",
-                        "description": "Filter user"
-                    },
-                    {
                         "name": "limit",
                         "in": "query",
                         "description": "Filter user"
@@ -244,6 +238,27 @@
                         "description": "Filter user"
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/api/user/filterUser": {
+            "get": {
+                "summary": "Select User",
+                "tags": [
+                    "User"
+                ],
+                "security": [{
+                    "bearerAuth": []
+                }],
+                "parameters": [{
+                    "name": "search",
+                    "in": "query",
+                    "description": "Filter user"
+                }],
                 "responses": {
                     "200": {
                         "description": ""

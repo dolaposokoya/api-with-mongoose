@@ -103,7 +103,6 @@ const getAllUser = async(req, res) => {
         };
         // const response = await userSchema.find().limit(parseInt(limit || 2)).sort({ createdAt: -1 })
         const response = await userSchema.paginate({}, options)
-        console.log('response', response)
         if (response) {
             statusMessages.SUCCESS_MSG.SUCCESS.data = response
             res.json(statusMessages.SUCCESS_MSG.SUCCESS)
@@ -122,7 +121,7 @@ const filterUser = async(req, res) => {
         const { search } = req.query
         if (search) {
             const query = {
-                $or: [{ first_name: { $regex: new RegExp(`'${search}'`, 'gi', '+') } }, { gender: { $regex: new RegExp(`^'${search}'`, 'gi', '+-*/@.') } }, { blood_group: { $regex: new RegExp(`^${search}`, 'gi', '+-*/@.') } }, { city: { $regex: new RegExp(`^'${search}'`, 'gi', '@+-*/') } }]
+                $or: [{ first_name: { $regex: new RegExp(`${search}`, 'gi', '+') } }, { gender: { $regex: new RegExp(`^${search}`, 'gi', '+') } }, { blood_group: { $regex: new RegExp(`^${search}`, 'gi', '+') } }, { city: { $regex: new RegExp(`^${search}`, 'gi', '+') } }]
             }
             filterusers(query)
         } else {
@@ -143,6 +142,7 @@ const filterUser = async(req, res) => {
         res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
     }
 }
+
 const allGroup = async(req, res) => {
     try {
         const { bloodGroup } = req.body
