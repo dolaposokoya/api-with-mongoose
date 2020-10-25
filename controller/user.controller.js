@@ -7,7 +7,7 @@ const random = require('crypto')
 const statusMessages = require('../config/appConstants')
 
 
-const findUser = async (req, res, next) => {
+const findUser = async(req, res, next) => {
     try {
         const response = await userSchema.findOne({ email: req.body.email });
         if (response) {
@@ -15,14 +15,13 @@ const findUser = async (req, res, next) => {
         } else {
             next();
         }
-    }
-    catch (error) {
+    } catch (error) {
         statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
         res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
     }
 }
 
-const registerUser = async (req, res) => {
+const registerUser = async(req, res) => {
     try {
         const id = random.randomBytes(4).toString('hex')
         console.log('req.body', req.body)
@@ -39,18 +38,16 @@ const registerUser = async (req, res) => {
             } else {
                 res.json(statusMessages.ERROR_MSG.UNABLE_TO_REGISTER)
             }
-        }
-        else {
+        } else {
             res.json(statusMessages.ERROR_MSG.SOMETHING_WENT_WRONG)
         }
-    }
-    catch (error) {
+    } catch (error) {
         statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
         res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
     }
 }
 
-const loginUser = async (req, res) => {
+const loginUser = async(req, res) => {
     try {
         const { email, password } = req.body;
         const response = await userSchema.findOne({ email: email })
@@ -79,7 +76,7 @@ const loginUser = async (req, res) => {
 }
 
 
-const getOneUser = async (req, res) => {
+const getOneUser = async(req, res) => {
     try {
         const { id } = req.query
         const response = await userSchema.findById({ _id: id })
@@ -89,31 +86,64 @@ const getOneUser = async (req, res) => {
         } else {
             res.json(statusMessages.ERROR_MSG.DATA_NOT_FOUND)
         }
-    }
-    catch (error) {
+    } catch (error) {
         statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
         res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
     }
 }
 
-const getAllUser = async (req, res) => {
+// Previous get all user  getAllUser
+const getAllUser = async(req, res) => {
     try {
-        const { limit } = req.query
-        const response = await userSchema.find().limit(parseInt(limit || 10)).sort({ createdAt: -1 })
+        const { limit, page } = req.query
+        const options = {
+            page: page || 1,
+            limit: limit || 5,
+            sort: { createdAt: -1 }
+        };
+        // const response = await userSchema.find().limit(parseInt(limit || 2)).sort({ createdAt: -1 })
+        const response = await userSchema.paginate({}, options)
+        console.log('response', response)
         if (response) {
             statusMessages.SUCCESS_MSG.SUCCESS.data = response
             res.json(statusMessages.SUCCESS_MSG.SUCCESS)
         } else {
             res.json(statusMessages.ERROR_MSG.DATA_NOT_FOUND)
         }
-    }
-    catch (error) {
+    } catch (error) {
         statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
         res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
     }
 }
 
-const allGroup = async (req, res) => {
+// Previous filter user
+const filterUser = async(req, res) => {
+    try {
+        const { search } = req.query
+        if (search) {
+            const query = {
+                $or: [{ first_name: { $regex: new RegExp(`'${search}'`, 'gi', '+') } }, { gender: { $regex: new RegExp(`^'${search}'`, 'gi', '+-*/@.') } }, { blood_group: { $regex: new RegExp(`^${search}`, 'gi', '+-*/@.') } }, { city: { $regex: new RegExp(`^'${search}'`, 'gi', '@+-*/') } }]
+            }
+            filterusers(query)
+        } else {
+            const query = {}
+            filterusers(query)
+        }
+        async function filterusers(filter) {
+            const response = await userSchema.paginate(filter)
+            if (response) {
+                statusMessages.SUCCESS_MSG.SUCCESS.data = response
+                res.json(statusMessages.SUCCESS_MSG.SUCCESS)
+            } else {
+                res.json(statusMessages.ERROR_MSG.DATA_NOT_FOUND)
+            }
+        }
+    } catch (error) {
+        statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
+        res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
+    }
+}
+const allGroup = async(req, res) => {
     try {
         const { bloodGroup } = req.body
         const response = await userSchema.find({ blood_group: bloodGroup })
@@ -123,15 +153,14 @@ const allGroup = async (req, res) => {
         } else {
             res.json(statusMessages.ERROR_MSG.DATA_NOT_FOUND)
         }
-    }
-    catch (error) {
+    } catch (error) {
         statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
         res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
     }
 }
 
 
-const updateUser = async (req, res) => {
+const updateUser = async(req, res) => {
     try {
         const { password } = req.body;
         const { id } = req.query;
@@ -144,19 +173,17 @@ const updateUser = async (req, res) => {
             } else {
                 res.json(statusMessages.ERROR_MSG.UNABLE_TO_UPDATE)
             }
-        }
-        else {
+        } else {
             res.json(statusMessages.ERROR_MSG.SOMETHING_WENT_WRONG)
         }
-    }
-    catch (error) {
+    } catch (error) {
         statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
         res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
     }
 }
 
 
-const forgotPassword = async (req, res) => {
+const forgotPassword = async(req, res) => {
     try {
         const { email, password } = req.body;
         const newEmail = email.toLowerCase()
@@ -166,23 +193,20 @@ const forgotPassword = async (req, res) => {
             if (response) {
                 statusMessages.SUCCESS_MSG.SUCCESS.data = response
                 res.json(statusMessages.SUCCESS_MSG.SUCCESS)
-            }
-            else {
+            } else {
                 res.json(statusMessages.ERROR_MSG.UNABLE_TO_UPDATE)
             }
-        }
-        else {
+        } else {
             res.json(statusMessages.ERROR_MSG.SOMETHING_WENT_WRONG)
         }
-    }
-    catch (error) {
+    } catch (error) {
         statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
         res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
     }
 }
 
 
-const deleteUser = async (req, res, next) => {
+const deleteUser = async(req, res, next) => {
     try {
         const { id } = req.query
         const response = await userSchema.findByIdAndDelete({ _id: id })
@@ -205,6 +229,7 @@ module.exports = {
     loginUser,
     getOneUser,
     getAllUser,
+    filterUser,
     allGroup,
     updateUser,
     forgotPassword,
