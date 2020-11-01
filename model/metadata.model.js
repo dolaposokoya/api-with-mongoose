@@ -1,7 +1,7 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-var metadataSchema = new Schema({
+const metadataSchema = new Schema({
   // gender: {
   //   type: Array,
   //   required: false,
@@ -17,6 +17,12 @@ var metadataSchema = new Schema({
     required: false,
     unique: false,
   },
-});
+},
+  {
+    versionKey: false,
+    timestamps: true
+  }
+);
 
 module.exports = mongoose.model("metadata", metadataSchema);
+

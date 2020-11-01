@@ -1,7 +1,7 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-var requestSchema = new Schema({
+const requestSchema = new Schema({
   patient_name: {
     type: String,
   },
@@ -45,6 +45,12 @@ var requestSchema = new Schema({
     type: String,
     default: "Not Approved",
   },
-});
+},
+  {
+    versionKey: false,
+    timestamps: true
+  }
+);
 
 module.exports = mongoose.model("requests", requestSchema);
+

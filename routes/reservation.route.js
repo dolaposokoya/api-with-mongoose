@@ -1,89 +1,20 @@
-let express = require("express"),
-  verifyToken = require("../model/auth");
-let router = express.Router();
-let reservationSchema = require("../model/reservation");
-config = require("../DB");
+const express = require("express");
+const router = express.Router();
+const { makeReservation, getOneReservation, updateReservation, getMyReservations } = require("../controller/reservation.controller");
+const verifyToken = require('../middleware/authorization');
 
-router.post("/create-reservation", (req, res) => {
-  var legit = verifyToken.verify(req.headers.authorization);
-  const reservation = new reservationSchema({
-    user_id: legit.user_id,
-    donor_name: req.body.donor_name,
-    age: req.body.age,
-    gender: req.body.gender,
-    donor_mobile: req.body.donor_mobile,
-    weight: req.body.weight,
-    reservation_date: req.body.reservation_date,
-  });
-  if (legit) {
-    reservation.save(function(err, data) {
-      if (err) {
-        res.status(200).json({
-          message: "Unable to make reservation",
-          error: err,
-          success: false,
-        });
-      } else {
-        res.status(200).json({
-          message: "Reservation made",
-          data: data,
-          success: true,
-        });
-      }
-    });
-  } else {
-    res.status(401).json({
-      message: 'Unauthorized',
-      success: false
-    })
-  }
-});
 
-router.get("/get-reservation-by-id/:request_id", (req, res) => {
-  var legit = verifyToken.verify(req.headers.authorization);
-  if (legit) {
-    reserveService.getReserveById(req.body, req.params, (err, data) => {
-      if (err) {
-        res.json({
-          message: "Unable to get request try again after sometime",
-          status: 200,
-          success: false,
-        });
-      } else {
-        res.json({
-          message: "Request Retrieved",
-          status: 200,
-          success: true,
-          data,
-        });
-      }
-    });
-  } else {
-    res.sendStatus(403)
-  }
-});
 
-router.put("/update-reservation-by-id/:reserve_id", (req, res) => {
-  var legit = verifyToken.verify(req.headers.authorization);
-  if (legit) {
-    reserveService.updateRequest(req.body, req.params, (err, data) => {
-      if (err) {
-        res.json({
-          message: "Unable to update request try again after sometime",
-          status: 200,
-          success: false,
-        });
-      } else {
-        res.json({
-          message: "Request Updated",
-          status: 200,
-          success: true
-        });
-      }
-    });
-  } else {
-    res.sendStatus(403)
-  }
-});
+router.post("/createReservation", verifyToken, makeReservation);
+
+
+router.get("/getReservationById", verifyToken, getOneReservation);
+
+
+router.put("/updateReservationById", verifyToken, updateReservation);
+
+
+router.get("/myReseravations", verifyToken, getMyReservations);
 
 module.exports = router;
+

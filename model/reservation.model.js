@@ -1,7 +1,8 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
 
-var reservationSchema = new Schema({
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
+const reservationSchema = new Schema({
   user_id: {
     type: String,
   },
@@ -42,10 +43,12 @@ var reservationSchema = new Schema({
   reservation_date: {
     type: Date,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+},
+  {
+    versionKey: false,
+    timestamps: true
+  }
+);
 
 module.exports = mongoose.model("reservation", reservationSchema);
+

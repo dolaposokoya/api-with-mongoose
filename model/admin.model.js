@@ -1,7 +1,7 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-var adminSchema = new Schema({
+const adminSchema = new Schema({
     profile_id: {
         type: String,
     },
@@ -27,7 +27,11 @@ var adminSchema = new Schema({
     password: {
         type: String,
     },
-});
-
+},
+    {
+        versionKey: false,
+        timestamps: true
+    }
+);
 
 module.exports = mongoose.model("admin", adminSchema);
