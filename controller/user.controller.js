@@ -7,9 +7,10 @@ const random = require('crypto')
 const statusMessages = require('../config/appConstants')
 
 
-const findUser = async(req, res, next) => {
+const findUser = async (req, res, next) => {
     try {
-        const response = await userSchema.findOne({ email: req.body.email });
+        const email = req.body.email.toLowerCase()
+        const response = await userSchema.findOne({ email: email });
         if (response) {
             res.json(statusMessages.ERROR_MSG.EMAIL_EXIST)
         } else {
@@ -21,7 +22,7 @@ const findUser = async(req, res, next) => {
     }
 }
 
-const registerUser = async(req, res) => {
+const registerUser = async (req, res) => {
     try {
         const id = random.randomBytes(4).toString('hex')
         console.log('req.body', req.body)
@@ -47,10 +48,10 @@ const registerUser = async(req, res) => {
     }
 }
 
-const loginUser = async(req, res) => {
+const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const response = await userSchema.findOne({ email: email })
+        const response = await userSchema.findOne({ email: email.toLowerCase() })
         if (!response) {
             res.json(statusMessages.ERROR_MSG.DATA_NOT_FOUND)
         } else {
@@ -76,7 +77,7 @@ const loginUser = async(req, res) => {
 }
 
 
-const getOneUser = async(req, res) => {
+const getOneUser = async (req, res) => {
     try {
         const { id } = req.query
         const response = await userSchema.findById({ _id: id })
@@ -93,7 +94,7 @@ const getOneUser = async(req, res) => {
 }
 
 // Previous get all user  getAllUser
-const getAllUser = async(req, res) => {
+const getAllUser = async (req, res) => {
     try {
         const { limit, page } = req.query
         const options = {
@@ -116,7 +117,7 @@ const getAllUser = async(req, res) => {
 }
 
 // Previous filter user
-const filterUser = async(req, res) => {
+const filterUser = async (req, res) => {
     try {
         const { search } = req.query
         if (search) {
@@ -143,7 +144,7 @@ const filterUser = async(req, res) => {
     }
 }
 
-const allGroup = async(req, res) => {
+const allGroup = async (req, res) => {
     try {
         const { bloodGroup } = req.body
         const response = await userSchema.find({ blood_group: bloodGroup })
@@ -160,7 +161,7 @@ const allGroup = async(req, res) => {
 }
 
 
-const updateUser = async(req, res) => {
+const updateUser = async (req, res) => {
     try {
         const { password } = req.body;
         const { id } = req.query;
@@ -183,7 +184,7 @@ const updateUser = async(req, res) => {
 }
 
 
-const forgotPassword = async(req, res) => {
+const forgotPassword = async (req, res) => {
     try {
         const { email, password } = req.body;
         const newEmail = email.toLowerCase()
@@ -206,7 +207,7 @@ const forgotPassword = async(req, res) => {
 }
 
 
-const deleteUser = async(req, res, next) => {
+const deleteUser = async (req, res, next) => {
     try {
         const { id } = req.query
         const response = await userSchema.findByIdAndDelete({ _id: id })
