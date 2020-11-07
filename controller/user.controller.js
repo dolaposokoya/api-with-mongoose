@@ -102,8 +102,8 @@ const getAllUser = async (req, res) => {
             limit: limit || 5,
             sort: { createdAt: -1 }
         };
-        // const response = await userSchema.find().limit(parseInt(limit || 2)).sort({ createdAt: -1 })
-        const response = await userSchema.paginate({}, options)
+        const response = await userSchema.find().sort({ createdAt: -1 })
+        // const response = await userSchema.paginate({}, options)
         if (response) {
             statusMessages.SUCCESS_MSG.SUCCESS.data = response
             res.json(statusMessages.SUCCESS_MSG.SUCCESS)
