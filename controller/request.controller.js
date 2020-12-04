@@ -1,6 +1,5 @@
 const userSchema = require("../model/user.model");
 const requestSchema = require("../model/request.model");
-const nodemailer = require("nodemailer");
 const statusMessages = require('../config/appConstants')
 
 
@@ -24,20 +23,20 @@ const checkRequest = async (req, res, next) => {
     }
 }
 
-const makeRequest = async (req, res) => {
+const makeRequest = async (req, res, next) => {
     try {
         const request = new requestSchema()
         const { _id } = req.user
         request.user_id = _id
         const response = await request.save()
         if (response) {
-            const incrementRequest = await userSchema.findByIdAndUpdate({ _id: _id }, { $inc: { number_of_request: 1 } })
+            const incrementRequest = await userSchema.findByIdAndUpdate({ _id: _id }, { $inc: { number_of_request: 1 }, returnOriginal: false })
             if (incrementRequest) {
                 statusMessages.SUCCESS_MSG.REQUEST_RESPONSE.data = response
                 res.json(statusMessages.SUCCESS_MSG.REQUEST_RESPONSE)
             }
             else {
-                res.json(statusMessages.ERROR_MSG.UNABLE_TO_UPDATE)
+                res.json(statusMessages.ERROR_MSG.UNABLE_TO_MAKE_REQUEST)
             }
         } else {
             res.json(statusMessages.ERROR_MSG.SOMETHING_WENT_WRONG)

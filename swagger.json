@@ -34,14 +34,18 @@
                 "produces": [
                     "application/json"
                 ],
-                "security": [{
-                    "basicAuth": []
-                }],
-                "parameters": [{
-                    "in": "formData",
-                    "name": "file",
-                    "type": "file"
-                }],
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "file",
+                        "type": "file"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": ""
@@ -69,9 +73,11 @@
                 "tags": [
                     "Blood Group"
                 ],
-                "security": [{
-                    "basicAuth": []
-                }],
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": ""
@@ -89,17 +95,21 @@
                 "produces": [
                     "application/json"
                 ],
-                "security": [{
-                    "basicAuth": []
-                }],
-                "parameters": [{
-                    "name": "name",
-                    "in": "body",
-                    "description": "create admin",
-                    "schema": {
-                        "$ref": "#/definitions/Admin"
+                "security": [
+                    {
+                        "basicAuth": []
                     }
-                }],
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "body",
+                        "description": "create admin",
+                        "schema": {
+                            "$ref": "#/definitions/Admin"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": ""
@@ -118,17 +128,21 @@
                 "produces": [
                     "application/json"
                 ],
-                "security": [{
-                    "basicAuth": []
-                }],
-                "parameters": [{
-                    "name": "name",
-                    "in": "body",
-                    "description": "create user",
-                    "schema": {
-                        "$ref": "#/definitions/User"
+                "security": [
+                    {
+                        "basicAuth": []
                     }
-                }],
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "body",
+                        "description": "create user",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": ""
@@ -146,10 +160,13 @@
                 "produces": [
                     "application/json"
                 ],
-                "security": [{
-                    "bearerAuth": []
-                }],
-                "parameters": [{
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
                         "name": "id",
                         "in": "query",
                         "description": "user id"
@@ -177,17 +194,21 @@
                     "User"
                 ],
                 "consumes": "multipart/form-data",
-                "security": [{
-                    "basicAuth": []
-                }],
-                "parameters": [{
-                    "name": "name",
-                    "in": "body",
-                    "description": "update an Employee detail",
-                    "schema": {
-                        "$ref": "#/definitions/login"
+                "security": [
+                    {
+                        "basicAuth": []
                     }
-                }],
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "body",
+                        "description": "update an Employee detail",
+                        "schema": {
+                            "$ref": "#/definitions/login"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": ""
@@ -200,17 +221,21 @@
                 "tags": [
                     "User"
                 ],
-                "security": [{
-                    "basicAuth": []
-                }],
-                "parameters": [{
-                    "name": "name",
-                    "in": "body",
-                    "description": "forget password",
-                    "schema": {
-                        "$ref": "#/definitions/updatepassword"
+                "security": [
+                    {
+                        "basicAuth": []
                     }
-                }],
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "body",
+                        "description": "forget password",
+                        "schema": {
+                            "$ref": "#/definitions/updatepassword"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": ""
@@ -224,10 +249,13 @@
                 "tags": [
                     "User"
                 ],
-                "security": [{
-                    "bearerAuth": []
-                }],
-                "parameters": [{
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
                         "name": "limit",
                         "in": "query",
                         "description": "Filter user"
@@ -251,14 +279,18 @@
                 "tags": [
                     "User"
                 ],
-                "security": [{
-                    "bearerAuth": []
-                }],
-                "parameters": [{
-                    "name": "search",
-                    "in": "query",
-                    "description": "Filter user"
-                }],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Filter user"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": ""
@@ -272,16 +304,20 @@
                 "tags": [
                     "User"
                 ],
-                "security": [{
-                    "bearerAuth": []
-                }],
-                "parameters": [{
-                    "name": "id",
-                    "in": "query",
-                    "required": true,
-                    "description": "ID of User that we want to select",
-                    "type": "string"
-                }],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "description": "ID of User that we want to select",
+                        "type": "string"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": ""
@@ -294,20 +330,48 @@
                 "tags": [
                     "User"
                 ],
-                "security": [{
-                    "bearerAuth": []
-                }],
-                "parameters": [{
-                    "name": "id",
-                    "in": "query",
-                    "required": true,
-                    "description": "ID of Employee that we want to delete",
-                    "type": "string"
-                }],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "description": "ID of Employee that we want to delete",
+                        "type": "string"
+                    }
+                ],
                 "summary": "Delete detail one-by-one of Employee!",
                 "responses": {
                     "200": {
                         "description": "Deleted"
+                    }
+                }
+            }
+        },
+        "/api/user/contactUser": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "donor_id",
+                        "in": "query",
+                        "description": "Donor Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
                     }
                 }
             }
@@ -323,17 +387,21 @@
                 "produces": [
                     "application/json"
                 ],
-                "security": [{
-                    "bearerAuth": []
-                }],
-                "parameters": [{
-                    "name": "name",
-                    "in": "body",
-                    "description": "create reservation",
-                    "schema": {
-                        "$ref": "#/definitions/donateblood"
+                "security": [
+                    {
+                        "bearerAuth": []
                     }
-                }],
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "body",
+                        "description": "create reservation",
+                        "schema": {
+                            "$ref": "#/definitions/donateblood"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": ""
@@ -347,16 +415,20 @@
                 "tags": [
                     "Reservation"
                 ],
-                "security": [{
-                    "bearerAuth": []
-                }],
-                "parameters": [{
-                    "name": "id",
-                    "in": "query",
-                    "required": true,
-                    "description": "ID of Reservation that we want to select",
-                    "type": "string"
-                }],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "description": "ID of Reservation that we want to select",
+                        "type": "string"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": ""
@@ -374,10 +446,13 @@
                 "produces": [
                     "application/json"
                 ],
-                "security": [{
-                    "bearerAuth": []
-                }],
-                "parameters": [{
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
                         "name": "id",
                         "in": "query",
                         "required": true,
@@ -406,9 +481,11 @@
                 "tags": [
                     "Reservation"
                 ],
-                "security": [{
-                    "bearerAuth": []
-                }],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "parameters": [],
                 "responses": {
                     "200": {
@@ -423,17 +500,26 @@
                 "tags": [
                     "Request Blood"
                 ],
-                "security": [{
-                    "bearerAuth": []
-                }],
-                "parameters": [{
-                    "name": "name",
-                    "in": "body",
-                    "description": "Request Blood",
-                    "schema": {
-                        "$ref": "#/definitions/requestblood"
+                "security": [
+                    {
+                        "bearerAuth": []
                     }
-                }],
+                ],
+                "parameters": [
+                    {
+                        "name": "donor_id",
+                        "in": "query",
+                        "description": "Donor Id"
+                    },
+                    {
+                        "name": "name",
+                        "in": "body",
+                        "description": "Request Blood",
+                        "schema": {
+                            "$ref": "#/definitions/requestblood"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": ""
@@ -447,10 +533,13 @@
                 "tags": [
                     "Request Blood"
                 ],
-                "security": [{
-                    "bearerAuth": []
-                }],
-                "parameters": [{
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
                         "name": "id",
                         "in": "query",
                         "description": "user id"
@@ -477,16 +566,20 @@
                 "tags": [
                     "Request Blood"
                 ],
-                "security": [{
-                    "bearerAuth": []
-                }],
-                "parameters": [{
-                    "name": "id",
-                    "in": "query",
-                    "required": true,
-                    "description": "ID of Request that we want to select",
-                    "type": "string"
-                }],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "description": "ID of Request that we want to select",
+                        "type": "string"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": ""
@@ -500,9 +593,11 @@
                 "tags": [
                     "Request Blood"
                 ],
-                "security": [{
-                    "bearerAuth": []
-                }],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "parameters": [],
                 "responses": {
                     "200": {

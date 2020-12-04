@@ -2,8 +2,10 @@ const express = require("express");
 const { basicAuth } = require('../config/basicAuthentication');
 const { deleteFile } = require('../controller/file.controller');
 const router = express.Router();
-const { findUser, registerUser, getAllUser, getOneUser, loginUser, allGroup, updateUser, forgotPassword, deleteUser, filterUser } = require('../controller/user.controller');
+const { findUser, registerUser, getAllUser, getOneUser, loginUser, allGroup, updateUser, forgotPassword, deleteUser, filterUser, contactUser } = require('../controller/user.controller');
 const verifyToken = require('../middleware/authorization');
+const { sendRequestMail } = require("../controller/mail.controller");
+
 
 
 //- - - - - - - - - - - - - - INSERT - DATA - IN - USER - TABLE - - - - - - - - - - - - - -
@@ -33,6 +35,8 @@ router.put("/forgetPassword", basicAuth, forgotPassword);
 
 //- - - - - - - - - - - - - - DELETE - DATA - OF - USER- ROLE - MODULE - BY -ID - - - - - - - - - - - - - -
 router.delete("/deleteUser", verifyToken, deleteUser, deleteFile);
+
+router.get("/contactUser", verifyToken, contactUser, sendRequestMail);
 /**
  * Delete User
  */

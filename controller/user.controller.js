@@ -224,6 +224,29 @@ const deleteUser = async (req, res, next) => {
 }
 
 
+const contactUser = async (req, res, next) => {
+    try {
+        const { donor_id } = req.query
+        if (donor_id) {
+            const { email, first_name } = await userSchema.findById({ _id: donor_id })
+            console.log('email', email)
+            if (email && first_name) {
+                req.request = { email, first_name }
+                next();
+            }
+            else {
+                res.json(statusMessages.ERROR_MSG.UNABLE_TO_MAKE_REQUEST)
+            }
+        } else {
+            res.json(statusMessages.ERROR_MSG.SOMETHING_WENT_WRONG)
+        }
+    }
+    catch (error) {
+        statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
+        res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
+    }
+}
+
 module.exports = {
     findUser,
     registerUser,
@@ -234,5 +257,6 @@ module.exports = {
     allGroup,
     updateUser,
     forgotPassword,
-    deleteUser
+    deleteUser,
+    contactUser
 }
