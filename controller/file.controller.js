@@ -7,7 +7,7 @@ const fs = require('fs')
 // USING MULTER FOR INSERTING FILES IN USER TABLE
 const storage = multer.diskStorage({
     destination: function (request, file, callback) {
-        callback(null, "public/files");
+        callback(null, "public/images");
     },
     filename: function (request, file, callback) {
         const fileUrl = uuidv4() + path.extname(file.originalname)
@@ -43,7 +43,7 @@ const fileUpload = (req, res) => {
 
 const deleteFile = async (req, res) => {
     try {
-        const imagePath = "public/files";
+        const imagePath = "public/images";
         const filePath = req.file;
         if (fs.existsSync(`${imagePath}/${filePath}`)) {
             fs.unlink(`${imagePath}/${filePath}`, (error) => {

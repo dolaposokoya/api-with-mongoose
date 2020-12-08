@@ -56,12 +56,12 @@ const loginUser = async (req, res) => {
             res.json(statusMessages.ERROR_MSG.DATA_NOT_FOUND)
         } else {
             if (response) {
-                const { email, _id, username, profile_id, user_type } = response
+                const { email, _id, username, profile_id, user_type, profile_image: { fileName } } = response
                 const hashedPassword = response.password
                 const decrypt = await verifyPassword(password, hashedPassword)
                 if (decrypt) {
                     const token = await generateToken(email, username, _id, user_type)
-                    statusMessages.SUCCESS_MSG.SUCCESS.data = { token, profile_id }
+                    statusMessages.SUCCESS_MSG.SUCCESS.data = { token, profile_id, fileName }
                     res.json(statusMessages.SUCCESS_MSG.SUCCESS)
                 } else {
                     res.json(statusMessages.ERROR_MSG.EMAIL_OR_PASSWORD)
@@ -79,8 +79,8 @@ const loginUser = async (req, res) => {
 
 const getOneUser = async (req, res) => {
     try {
-        const { id } = req.query
-        const response = await userSchema.findById({ _id: id })
+        const { _id } = req.user
+        const response = await userSchema.findById({ _id: _id })
         if (response) {
             statusMessages.SUCCESS_MSG.SUCCESS.data = response
             res.json(statusMessages.SUCCESS_MSG.SUCCESS)
@@ -164,10 +164,11 @@ const allGroup = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const { password } = req.body;
-        const { id } = req.query;
+        // const { id } = req.query;
+        const { _id } = req.user
         const hash = await encryptPassword(password);
         if (hash) {
-            const response = await userSchema.findByIdAndUpdate({ _id: id }, req.body, { returnOriginal: false })
+            const response = await userSchema.findByIdAndUpdate({ _id: _id }, req.body, { returnOriginal: false })
             if (response) {
                 statusMessages.SUCCESS_MSG.SUCCESS.data = response
                 res.json(statusMessages.SUCCESS_MSG.SUCCESS)
