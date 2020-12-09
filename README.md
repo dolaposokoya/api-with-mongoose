@@ -2,9 +2,9 @@
 "# API"
 "# API"
 
-# Download the API folder
+### Download the API folder
 
-# when the folder, in the folder name bar highlight it type cmd(command prompt)
+### when the folder, in the folder name bar highlight it type cmd(command prompt)
 
 # when cmd is opne type npm install
 
