@@ -13,4 +13,4 @@
 - when above steps are complete type npm start
 - To access image type localhost:5000/images/${imagename} without public folder
 - You have to create your own mongodb database by visiting mongodb atlas website and also download mongodb compass community and replace proccess.env.DB_HOST with the url provided to you in db.js, and also make changes to the schema in model folder as you which
- - 📧 if you have any problem contact me on dolaposokoya97@gmail.com 
+ - 📧 if you have any problem contact me 👉🏿 dolaposokoya97@gmail.com 
