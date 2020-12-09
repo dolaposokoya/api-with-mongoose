@@ -1,4 +1,4 @@
-### Node JS APi with mongodb and express
+### Node JS API with mongodb and express
 
 ## Steps to run api
 
