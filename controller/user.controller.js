@@ -50,24 +50,33 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { password } = req.body;
+        const email = req.body.email.toLowerCase();
         const response = await userSchema.findOne({ email: email.toLowerCase() })
         if (!response) {
             res.json(statusMessages.ERROR_MSG.DATA_NOT_FOUND)
         } else {
             if (response) {
-                const { email, _id, username, profile_id, user_type, profile_image: { fileName } } = response
-                const hashedPassword = response.password
-                const decrypt = await verifyPassword(password, hashedPassword)
-                if (decrypt) {
-                    const token = await generateToken(email, username, _id, user_type)
-                    statusMessages.SUCCESS_MSG.SUCCESS.data = { token, profile_id, fileName }
-                    res.json(statusMessages.SUCCESS_MSG.SUCCESS)
-                } else {
-                    res.json(statusMessages.ERROR_MSG.EMAIL_OR_PASSWORD)
+                const userEmail = response.email.toLowerCase()
+                if (email != userEmail) {
+                    res.json(statusMessages.ERROR_MSG.EMAIL_NOT_FOUND)
+                }
+                else if (email === userEmail) {
+                    const hashedPassword = response.password
+                    const decrypt = await verifyPassword(password, hashedPassword)
+                    if (decrypt) {
+                        const { _id, username, profile_id, user_type, } = response
+                        const token = await generateToken(userEmail, username, _id, user_type)
+                        let fileName = response.profile_image.fileName;
+                        fileName ? fileName = fileName : fileName = null
+                        statusMessages.SUCCESS_MSG.SUCCESS.data = { token, profile_id, fileName }
+                        res.json(statusMessages.SUCCESS_MSG.SUCCESS)
+                    } else {
+                        res.json(statusMessages.ERROR_MSG.EMAIL_OR_PASSWORD)
+                    }
                 }
             } else {
-                res.json(statusMessages.ERROR_MSG.EMAIL_NOT_FOUND)
+                res.json(statusMessages.ERROR_MSG.DATA_NOT_FOUND)
             }
         }
     } catch (error) {
