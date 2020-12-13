@@ -29,6 +29,7 @@ const registerUser = async (req, res) => {
         const user = new userSchema(req.body);
         user.first_name = user.first_name.charAt(0).toUpperCase() + user.first_name.slice(1)
         user.last_name = user.last_name.charAt(0).toUpperCase() + user.last_name.slice(1)
+        user.city = user.city.charAt(0).toUpperCase() + user.city.slice(1)
         const hash = await encryptPassword(user.password);
         if (hash) {
             user.password = hash
