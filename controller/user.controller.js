@@ -104,7 +104,7 @@ const getOneUser = async (req, res) => {
 }
 
 // Previous get all user  getAllUser
-// 1 is from oldest to newest while -1 is from newest to oldest
+// 1 is ascending  while -1 is descending
 const getAllUser = async (req, res) => {
     try {
         const response = await userSchema.find().sort({ createdAt: -1 })
@@ -120,24 +120,24 @@ const getAllUser = async (req, res) => {
     }
 }
 
-// Previous get all user  getAllUser
-// 1 is from oldest to newest while -1 is from newest to oldest
+// 1 is ascending  while -1 is descending
 const sortAllUser = async (req, res) => {
     try {
         const { fieldName, orderBy } = req.query
         if (fieldName === 'first_name') {
-            abc({ first_name: orderBy })
+            abc({ first_name: parseInt(orderBy) })
         }
         else if (fieldName === 'gender') {
-            abc({ gender: orderBy })
+            abc({ gender: parseInt(orderBy) })
         }
         else if (fieldName === 'blood_group') {
-            abc({ blood_group: orderBy })
+            abc({ blood_group: parseInt(orderBy) })
         }
         else if (fieldName === 'city') {
-            abc({ city: orderBy })
+            abc({ city: parseInt(orderBy) })
         }
         async function abc(data) {
+            console.log('data', data)
             const response = await userSchema.find().sort(data)
             if (response) {
                 statusMessages.SUCCESS_MSG.SUCCESS.data = response
