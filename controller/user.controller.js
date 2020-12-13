@@ -103,21 +103,47 @@ const getOneUser = async (req, res) => {
 }
 
 // Previous get all user  getAllUser
+// 1 is from oldest to newest while -1 is from newest to oldest
 const getAllUser = async (req, res) => {
     try {
-        const { limit, page } = req.query
-        const options = {
-            page: page || 1,
-            limit: limit || 5,
-            sort: { createdAt: -1 }
-        };
         const response = await userSchema.find().sort({ createdAt: -1 })
-        // const response = await userSchema.paginate({}, options)
         if (response) {
             statusMessages.SUCCESS_MSG.SUCCESS.data = response
             res.json(statusMessages.SUCCESS_MSG.SUCCESS)
         } else {
             res.json(statusMessages.ERROR_MSG.DATA_NOT_FOUND)
+        }
+    } catch (error) {
+        statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
+        res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
+    }
+}
+
+// Previous get all user  getAllUser
+// 1 is from oldest to newest while -1 is from newest to oldest
+const sortAllUser = async (req, res) => {
+    try {
+        const { fieldName, orderBy } = req.query
+        if (fieldName === 'first_name') {
+            abc({ first_name: orderBy })
+        }
+        else if (fieldName === 'gender') {
+            abc({ gender: orderBy })
+        }
+        else if (fieldName === 'blood_group') {
+            abc({ blood_group: orderBy })
+        }
+        else if (fieldName === 'city') {
+            abc({ city: orderBy })
+        }
+        function abc(data) {
+            const response = await userSchema.find().sort(data)
+            if (response) {
+                statusMessages.SUCCESS_MSG.SUCCESS.data = response
+                res.json(statusMessages.SUCCESS_MSG.SUCCESS)
+            } else {
+                res.json(statusMessages.ERROR_MSG.DATA_NOT_FOUND)
+            }
         }
     } catch (error) {
         statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
@@ -264,6 +290,7 @@ module.exports = {
     getOneUser,
     getAllUser,
     filterUser,
+    sortAllUser,
     allGroup,
     updateUser,
     forgotPassword,
