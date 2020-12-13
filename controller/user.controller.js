@@ -136,7 +136,7 @@ const sortAllUser = async (req, res) => {
         else if (fieldName === 'city') {
             abc({ city: orderBy })
         }
-        function abc(data) {
+        async function abc(data) {
             const response = await userSchema.find().sort(data)
             if (response) {
                 statusMessages.SUCCESS_MSG.SUCCESS.data = response
