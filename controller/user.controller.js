@@ -70,7 +70,7 @@ const loginUser = async (req, res) => {
                     if (decrypt) {
                         const { _id, username, profile_id, user_type, } = response
                         const token = await generateToken(userEmail, username, _id, user_type)
-                        let fileName = response.profile_image.fileName;
+                        let fileName = response.profile_image;
                         fileName ? fileName = fileName : fileName = null
                         statusMessages.SUCCESS_MSG.SUCCESS.data = { token, profile_id, fileName }
                         res.json(statusMessages.SUCCESS_MSG.SUCCESS)

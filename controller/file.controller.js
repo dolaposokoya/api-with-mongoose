@@ -26,11 +26,7 @@ const fileUpload = (req, res) => {
                 res.json(statusMessages.ERROR_MSG.SOMETHING_WENT_WRONG)
             else {
                 files = req.files
-                const profile_image = {
-                    fileType: req.file.mimetype,
-                    fileUrl: req.file.path,
-                    fileName: req.file.filename,
-                };
+                const profile_image = req.file.filename
                 statusMessages.SUCCESS_MSG.SUCCESS.data = profile_image
                 res.json(statusMessages.SUCCESS_MSG.SUCCESS)
             }
