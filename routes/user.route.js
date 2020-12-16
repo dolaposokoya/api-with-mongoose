@@ -34,7 +34,7 @@ router.get("/bloodAllGroup", verifyToken, allGroup);
 router.put("/updateUser", verifyToken, updateUser);
 
 //- - - - - - - - - - - - - - - - - - - - - -UPDATE - STATUS - OF - USER - - - - - - - - - - - - - - - - - - - - - - - - //
-router.put("/updateUserStatus", verifyToken, updateUserStatus);
+router.put("/updateStatus", verifyToken, updateUserStatus);
 
 // - - - - - - - - - - - - - - - - -  -  - - CHANGE PASSWORD - - - - -- - - - - - - - - - - - - - - - - - - - - - -//
 router.put("/forgetPassword", basicAuth, forgotPassword);

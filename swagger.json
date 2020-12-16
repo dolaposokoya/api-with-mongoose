@@ -212,6 +212,43 @@
                 }
             }
         },
+        "/api/user/updateStatus": {
+            "put": {
+                "summary": "User Updated",
+                "tags": [
+                    "User"
+                ],
+                "consumes": "application/json",
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "user id"
+                    },
+                    {
+                        "name": "name",
+                        "in": "body",
+                        "description": "update user status",
+                        "schema": {
+                            "$ref": "#/definitions/updatestatus"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
         "/api/user/loginUser": {
             "post": {
                 "summary": "Login User",
@@ -817,6 +854,17 @@
                 "profile_image": {
                     "type": "object",
                     "uniqueItems": false
+                }
+            }
+        },
+        "updatestatus": {
+            "required": [
+                "status"
+            ],
+            "properties": {
+                "status": {
+                    "type": "number",
+                    "uniqueItems": "false"
                 }
             }
         },
