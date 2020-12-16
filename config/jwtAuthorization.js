@@ -23,7 +23,7 @@ module.exports = {
     },
     async generateToken(email, username, _id, user_type) {
         try {
-            const token = jwt.sign({ email: email, username: username, _id: _id, user_type: user_type }, JWT_SECRET_KEY, { expiresIn: '24h' }, { algorithm: 'RS256' })
+            const token = jwt.sign({ email: email, username: username, _id: _id, user_type: user_type }, JWT_SECRET_KEY, { expiresIn: 60 }, { algorithm: 'RS256' })
             if (token) {
                 return token
             } else {

@@ -114,7 +114,21 @@ const statusMessages = {
             success: false,
             message: "You've exceded number of request per month",
             type: "NUMBER_EXCEDED"
-        }
+        },
+        INAVLID_TOKEN: {
+            statusCode: 401,
+            success: false,
+            message: "Invalid Token",
+            type: "INAVLID_TOKEN",
+            error: ''
+        },
+        TOKEN_EXPIRED: {
+            statusCode: 401,
+            success: false,
+            message: "Token Expired",
+            type: "TOKEN_EXPIRED",
+            error: ''
+        },
     },
 
     SUCCESS_MSG: {

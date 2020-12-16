@@ -197,6 +197,27 @@ const allGroup = async (req, res) => {
     }
 }
 
+const updateUserStatus = async (req, res) => {
+    try {
+        const { password } = req.body;
+        const { status } = req.body;
+        const { id } = req.query;
+        const hash = await encryptPassword(password);
+        if (hash) {
+            const response = await userSchema.findByIdAndUpdate({ _id: id }, { status: status }, { returnOriginal: false })
+            if (response) {
+                res.json(statusMessages.SUCCESS_MSG.SUCCESS)
+            } else {
+                res.json(statusMessages.ERROR_MSG.UNABLE_TO_UPDATE)
+            }
+        } else {
+            res.json(statusMessages.ERROR_MSG.SOMETHING_WENT_WRONG)
+        }
+    } catch (error) {
+        statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
+        res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
+    }
+}
 
 const updateUser = async (req, res) => {
     try {
@@ -294,6 +315,7 @@ module.exports = {
     filterUser,
     sortAllUser,
     allGroup,
+    updateUserStatus,
     updateUser,
     forgotPassword,
     deleteUser,

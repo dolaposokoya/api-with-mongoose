@@ -23,6 +23,31 @@
         "application/json"
     ],
     "paths": {
+        "verify token": {},
+        "/api/token/validateToken": {
+            "post": {
+                "summary": "verify token",
+                "tags": [
+                    "Token"
+                ],
+                "consumes": "application/json",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
         "File Upload": {},
         "/api/file/uploadFile": {
             "post": {

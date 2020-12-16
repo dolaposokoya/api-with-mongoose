@@ -2,7 +2,7 @@ const express = require("express");
 const { basicAuth } = require('../config/basicAuthentication');
 const { deleteFile } = require('../controller/file.controller');
 const router = express.Router();
-const { findUser, registerUser, getAllUser, getOneUser, loginUser, allGroup, updateUser, forgotPassword, deleteUser, filterUser, contactUser, sortAllUser } = require('../controller/user.controller');
+const { findUser, registerUser, getAllUser, getOneUser, loginUser, allGroup, updateUser, forgotPassword, deleteUser, filterUser, contactUser, sortAllUser, updateUserStatus } = require('../controller/user.controller');
 const verifyToken = require('../middleware/authorization');
 const { sendRequestMail } = require("../controller/mail.controller");
 
@@ -33,11 +33,15 @@ router.get("/bloodAllGroup", verifyToken, allGroup);
 //- - - - - - - - - - - - - - - - - - - - - -UPDATE - DATA - OF - USER - - - - - - - - - - - - - - - - - - - - - - - - //
 router.put("/updateUser", verifyToken, updateUser);
 
+//- - - - - - - - - - - - - - - - - - - - - -UPDATE - STATUS - OF - USER - - - - - - - - - - - - - - - - - - - - - - - - //
+router.put("/updateUserStatus", verifyToken, updateUserStatus);
+
 // - - - - - - - - - - - - - - - - -  -  - - CHANGE PASSWORD - - - - -- - - - - - - - - - - - - - - - - - - - - - -//
 router.put("/forgetPassword", basicAuth, forgotPassword);
 
 //- - - - - - - - - - - - - - DELETE - DATA - OF - USER- ROLE - MODULE - BY -ID - - - - - - - - - - - - - -
 router.delete("/deleteUser", verifyToken, deleteUser, deleteFile);
+
 
 router.get("/contactUser", verifyToken, contactUser, sendRequestMail);
 /**
