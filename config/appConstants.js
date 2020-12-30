@@ -24,6 +24,12 @@ const statusMessages = {
             message: "Email does not exist.",
             type: "EMAIL_NOT_FOUND"
         },
+        NO_MATCH: {
+            status: 404,
+            success: false,
+            message: "No match found",
+            type: "NO_MATCH"
+        },
         EMAIL_EXIST: {
             status: 404,
             success: false,

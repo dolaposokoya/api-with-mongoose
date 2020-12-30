@@ -19,7 +19,7 @@ const adminSchema = new Schema({
         default: 'admin'
     },
     profile_image: {
-        type: Object,
+        type: String,
     },
     email: {
         type: String,

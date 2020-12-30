@@ -2,7 +2,6 @@
 const { encryptPassword, verifyPassword } = require('../utilities/universalFunctions');
 const { generateToken } = require('../config/jwtAuthorization')
 const userSchema = require("../model/user.model");
-const nodemailer = require("nodemailer");
 const random = require('crypto')
 const statusMessages = require('../config/appConstants')
 
@@ -11,7 +10,7 @@ const findUser = async (req, res, next) => {
     try {
         const email = req.body.email.toLowerCase()
         const response = await userSchema.findOne({ email: email });
-        if (response) {
+        if (response && response.email === email) {
             res.json(statusMessages.ERROR_MSG.EMAIL_EXIST)
         } else {
             next();
@@ -90,8 +89,8 @@ const loginUser = async (req, res) => {
 
 const getOneUser = async (req, res) => {
     try {
-        const { _id } = req.user
-        const response = await userSchema.findById({ _id: _id })
+        const { id } = req.query
+        const response = await userSchema.findById({ _id: id })
         if (response) {
             statusMessages.SUCCESS_MSG.SUCCESS.data = response
             res.json(statusMessages.SUCCESS_MSG.SUCCESS)
@@ -197,22 +196,6 @@ const allGroup = async (req, res) => {
     }
 }
 
-const updateUserStatus = async (req, res) => {
-    try {
-        const { status } = req.body;
-        const { id } = req.query;
-        const response = await userSchema.findByIdAndUpdate({ _id: id }, { status: status }, { returnOriginal: false })
-        if (response) {
-            statusMessages.SUCCESS_MSG.SUCCESS.data = { status: response.status }
-            res.json(statusMessages.SUCCESS_MSG.SUCCESS)
-        } else {
-            res.json(statusMessages.ERROR_MSG.UNABLE_TO_UPDATE)
-        }
-    } catch (error) {
-        statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
-        res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
-    }
-}
 
 const updateUser = async (req, res) => {
     try {
@@ -310,7 +293,6 @@ module.exports = {
     filterUser,
     sortAllUser,
     allGroup,
-    updateUserStatus,
     updateUser,
     forgotPassword,
     deleteUser,

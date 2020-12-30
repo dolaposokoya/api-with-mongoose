@@ -110,6 +110,7 @@
                 }
             }
         },
+        "Admin":{},
         "/api/admin/createAdmin": {
             "post": {
                 "summary": "Create Admin",
@@ -132,6 +133,35 @@
                         "description": "create admin",
                         "schema": {
                             "$ref": "#/definitions/Admin"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/api/admin/loginAdmin": {
+            "post": {
+                "summary": "Login Admin",
+                "tags": [
+                    "Admin"
+                ],
+                "consumes": "multipart/form-data",
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "Login",
+                        "in": "body",
+                        "description": "Login Admin",
+                        "schema": {
+                            "$ref": "#/definitions/login"
                         }
                     }
                 ],
@@ -263,9 +293,9 @@
                 ],
                 "parameters": [
                     {
-                        "name": "name",
+                        "name": "Login",
                         "in": "body",
-                        "description": "update an Employee detail",
+                        "description": "Login Userl",
                         "schema": {
                             "$ref": "#/definitions/login"
                         }
@@ -703,7 +733,7 @@
                     "uniqueItems": false
                 },
                 "profile_image": {
-                    "type": "object",
+                    "type": "string",
                     "uniqueItems": false
                 },
                 "email": {
