@@ -110,7 +110,7 @@
                 }
             }
         },
-        "Admin":{},
+        "Admin": {},
         "/api/admin/createAdmin": {
             "post": {
                 "summary": "Create Admin",
@@ -162,6 +162,41 @@
                         "description": "Login Admin",
                         "schema": {
                             "$ref": "#/definitions/login"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/api/admin/updateStatus": {
+            "post": {
+                "summary": "Update user status",
+                "tags": [
+                    "Admin"
+                ],
+                "consumes": "multipart/form-data",
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "description": "ID of User that we want to update",
+                        "type": "string"
+                    },
+                    {
+                        "name": "Status",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/updatestatus"
                         }
                     }
                 ],
