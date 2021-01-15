@@ -1,4 +1,5 @@
 const adminSchema = require("../model/admin.model");
+const userSchema = require("../model/user.model");
 const { encryptPassword, verifyPassword } = require('../utilities/universalFunctions');
 const random = require('crypto')
 const { generateToken } = require('../config/jwtAuthorization')
