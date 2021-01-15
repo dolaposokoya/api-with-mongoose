@@ -24,6 +24,12 @@ const statusMessages = {
             message: "Email does not exist.",
             type: "EMAIL_NOT_FOUND"
         },
+        NO_MATCH: {
+            status: 404,
+            success: false,
+            message: "No match found",
+            type: "NO_MATCH"
+        },
         EMAIL_EXIST: {
             status: 404,
             success: false,
@@ -72,6 +78,12 @@ const statusMessages = {
             success: false,
             message: "Unauthorized Access",
             type: "UNAUTHORIZATION_ACCESS"
+        },
+        UNAUTHORIZATION_PERSONNEL: {
+            status: 401,
+            success: false,
+            message: "Unauthorized Personnel",
+            type: "UNAUTHORIZATION_PERSONNEL"
         },
         UNABLE_TO_UPDATE: {
             status: 404,

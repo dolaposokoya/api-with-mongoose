@@ -7,7 +7,7 @@ module.exports = {
     async checkToken(token) {
         try {
             const userToken = token.split(' ')[1];
-            if (userToken === '' || userToken === undefined) {
+            if (userToken === '' || userToken === undefined || userToken === null) {
                 return {
                     success: false
                 }

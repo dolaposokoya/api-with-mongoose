@@ -2,7 +2,6 @@
 const { encryptPassword, verifyPassword } = require('../utilities/universalFunctions');
 const { generateToken } = require('../config/jwtAuthorization')
 const userSchema = require("../model/user.model");
-const nodemailer = require("nodemailer");
 const random = require('crypto')
 const statusMessages = require('../config/appConstants')
 
@@ -11,7 +10,7 @@ const findUser = async (req, res, next) => {
     try {
         const email = req.body.email.toLowerCase()
         const response = await userSchema.findOne({ email: email });
-        if (response) {
+        if (response && response.email === email) {
             res.json(statusMessages.ERROR_MSG.EMAIL_EXIST)
         } else {
             next();
@@ -90,8 +89,8 @@ const loginUser = async (req, res) => {
 
 const getOneUser = async (req, res) => {
     try {
-        const { _id } = req.user
-        const response = await userSchema.findById({ _id: _id })
+        const { id } = req.query
+        const response = await userSchema.findById({ _id: id })
         if (response) {
             statusMessages.SUCCESS_MSG.SUCCESS.data = response
             res.json(statusMessages.SUCCESS_MSG.SUCCESS)
