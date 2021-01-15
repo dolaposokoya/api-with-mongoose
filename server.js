@@ -14,7 +14,6 @@ const requestRoute = require("./routes/request.route");
 const reservationRoute = require("./routes/reservation.route");
 const bloodgroupRoute = require("./routes/bloodgroup.route");
 const fileRoute = require("./routes/file.route");
-const tokenRoute = require("./routes/token.validation.route");
 
 const app = express();
 
@@ -33,7 +32,6 @@ app.use("/api/user", userRoute);
 app.use("/api/reservation", reservationRoute);
 app.use("/api/bloodgroup", bloodgroupRoute);
 app.use("/api/file", fileRoute);
-app.use("/api/token", tokenRoute);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

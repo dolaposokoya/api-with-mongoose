@@ -19,7 +19,6 @@ const userSchema = new Schema({
     address: { type: String, },
     city: { type: String },
     state: { type: String },
-    status: { type: Number, default: 1 },
     zip_code: { type: String },
     number_of_request: { type: Number, default: 0 },
     clientVendor: { type: String },
