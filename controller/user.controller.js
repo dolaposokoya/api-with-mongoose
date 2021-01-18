@@ -24,7 +24,6 @@ const findUser = async (req, res, next) => {
 const registerUser = async (req, res) => {
     try {
         const id = random.randomBytes(4).toString('hex')
-        console.log('req.body', req.body)
         const user = new userSchema(req.body);
         user.first_name = user.first_name.charAt(0).toUpperCase() + user.first_name.slice(1)
         user.last_name = user.last_name.charAt(0).toUpperCase() + user.last_name.slice(1)
@@ -67,11 +66,13 @@ const loginUser = async (req, res) => {
                     const hashedPassword = response.password
                     const decrypt = await verifyPassword(password, hashedPassword)
                     if (decrypt) {
-                        const { _id, username, profile_id, user_type, } = response
+                        const { _id, username, first_name, last_name, profile_id, user_type, profile_image } = response
                         const token = await generateToken(userEmail, username, _id, user_type)
-                        let fileName = response.profile_image.fileName;
-                        fileName ? fileName = fileName : fileName = null
-                        statusMessages.SUCCESS_MSG.SUCCESS.data = { token, profile_id, fileName }
+                        req.session.token = token;
+                        req.session.cookie.expires = 86400000;
+                        req.session.session_id = random.randomBytes(16).toString('hex')
+                        const session_id = req.session.session_id
+                        statusMessages.SUCCESS_MSG.SUCCESS.data = { session_id, first_name, last_name, profile_image }
                         res.json(statusMessages.SUCCESS_MSG.SUCCESS)
                     } else {
                         res.json(statusMessages.ERROR_MSG.EMAIL_OR_PASSWORD)
@@ -137,7 +138,6 @@ const sortAllUser = async (req, res) => {
             abc({ city: parseInt(orderBy) })
         }
         async function abc(data) {
-            console.log('data', data)
             const response = await userSchema.find().sort(data)
             if (response) {
                 statusMessages.SUCCESS_MSG.SUCCESS.data = response
@@ -266,7 +266,6 @@ const contactUser = async (req, res, next) => {
         const { donor_id } = req.query
         if (donor_id) {
             const { email, first_name } = await userSchema.findById({ _id: donor_id })
-            console.log('email', email)
             if (email && first_name) {
                 req.request = { email, first_name }
                 next();

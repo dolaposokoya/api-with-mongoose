@@ -172,8 +172,22 @@
                 }
             }
         },
+        "/api/admin/getAdmin": {
+            "get": {
+                "summary": "Get Admin",
+                "tags": [
+                    "Admin"
+                ],
+                "consumes": "application/json",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
         "/api/admin/updateStatus": {
-            "post": {
+            "put": {
                 "summary": "Update user status",
                 "tags": [
                     "Admin"

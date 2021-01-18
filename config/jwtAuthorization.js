@@ -6,14 +6,14 @@ const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY
 module.exports = {
     async checkToken(token) {
         try {
-            const userToken = token.split(' ')[1];
-            if (userToken === '' || userToken === undefined || userToken === null) {
+            // const userToken = token.split(' ')[1];
+            if (token === '' || token === undefined || token === null) {
                 return {
                     success: false
                 }
             } else {
                 return {
-                    user_token: jwt.verify(userToken, JWT_SECRET_KEY),
+                    user_token: jwt.verify(token, JWT_SECRET_KEY),
                     success: true
                 };
             }

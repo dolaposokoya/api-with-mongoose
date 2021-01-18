@@ -3,7 +3,7 @@ const { basicAuth } = require('../config/basicAuthentication');
 const { deleteFile } = require('../controller/file.controller');
 const router = express.Router();
 const { findUser, registerUser, getAllUser, getOneUser, loginUser, allGroup, updateUser, forgotPassword, deleteUser, filterUser, contactUser, sortAllUser } = require('../controller/user.controller');
-const verifyToken = require('../middleware/authorization');
+const { verifyToken } = require('../middleware/authorization');
 const { sendRequestMail } = require("../controller/mail.controller");
 
 
@@ -25,7 +25,7 @@ router.get("/filterUser", verifyToken, filterUser);
 router.get("/sortAllUser", verifyToken, sortAllUser);
 
 //- - - - - - - - - - - - - - LOGIN - USER - BY - USER'S - MAIL - & - PASSWORD - - - - - - - - - - - - - - - - -
-router.post("/loginUser", basicAuth, loginUser);
+router.post("/loginUser", basicAuth, loginUser,);
 
 //- - - - - - - - - - - - - - GET - DATA - FROM - USER - MODULE - BY - BLOOD GROUP - - - - - - - - - - - - - - - - -
 router.get("/bloodAllGroup", verifyToken, allGroup);

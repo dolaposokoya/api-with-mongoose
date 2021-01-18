@@ -59,13 +59,16 @@ const loginAdmin = async (req, res) => {
         const adminEmail = email.toLowerCase();
         const response = await adminSchema.findOne({ email: adminEmail })
         if (response) {
-            const { username, _id, user_type, profile_image, profile_id, first_name, last_name } = response
+            const { username, _id, user_type, profile_image, first_name, last_name } = response
             if (response.email === adminEmail) {
                 const deHash = await verifyPassword(password, response.password)
                 if (deHash) {
-
                     const token = await generateToken(response.email, username, _id, user_type)
-                    statusMessages.SUCCESS_MSG.SUCCESS.data = { token, profile_id, profile_image, first_name, last_name }
+                    req.session.token = token;
+                    req.session.cookie.expires = 86400000;
+                    req.session.session_id = random.randomBytes(16).toString('hex')
+                    const session_id = req.session.session_id
+                    statusMessages.SUCCESS_MSG.SUCCESS.data = { session_id, profile_image, first_name, last_name }
                     res.json(statusMessages.SUCCESS_MSG.SUCCESS)
                 }
                 else {

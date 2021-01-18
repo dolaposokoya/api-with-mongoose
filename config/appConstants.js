@@ -79,6 +79,12 @@ const statusMessages = {
             message: "Unauthorized Access",
             type: "UNAUTHORIZATION_ACCESS"
         },
+        ACCESS_DENIED: {
+            status: 401,
+            success: false,
+            message: "Access Denied",
+            type: "ACCESS_DENIED"
+        },
         UNAUTHORIZATION_PERSONNEL: {
             status: 401,
             success: false,

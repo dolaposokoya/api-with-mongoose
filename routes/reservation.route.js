@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { makeReservation, getOneReservation, updateReservation, getMyReservations } = require("../controller/reservation.controller");
-const verifyToken = require('../middleware/authorization');
+const {verifyToken} = require('../middleware/authorization');
 
 
 

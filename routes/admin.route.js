@@ -1,8 +1,8 @@
 const express = require("express");
 const { basicAuth } = require("../config/basicAuthentication");
 const router = express.Router();
-const verifyToken = require('../middleware/authorization');
-const { createAdmin, loginAdmin, findAdmin, updateUserStatus } = require('../controller/admin.controller')
+const { verifyToken } = require('../middleware/authorization');
+const { createAdmin, loginAdmin, findAdmin, updateUserStatus, getAdmin } = require('../controller/admin.controller')
 
 // - - -  - - - - - - - - - - - - - CREATE ADMIN - - - - - - - - - - - - - - - //
 router.post("/createAdmin", basicAuth, findAdmin, createAdmin);
