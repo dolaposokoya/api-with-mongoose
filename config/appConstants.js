@@ -143,6 +143,12 @@ const statusMessages = {
             type: 'SUCCESS',
             data: {}
         },
+        LOG_OUT: {
+            status: 200,
+            message: 'User Logged Out',
+            success: true,
+            type: 'LOG_OUT'
+        },
         PWD_RECOVERY: {
             status: 200,
             message: 'Success',

@@ -283,6 +283,17 @@ const contactUser = async (req, res, next) => {
     }
 }
 
+const logOut = async (req, res) => {
+    try {
+        req.session.destory()
+        res.json(statusMessages.SUCCESS_MSG.LOG_OUT)
+    }
+    catch (error) {
+        statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
+        res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
+    }
+}
+
 module.exports = {
     findUser,
     registerUser,
@@ -295,5 +306,6 @@ module.exports = {
     updateUser,
     forgotPassword,
     deleteUser,
-    contactUser
+    contactUser,
+    logOut
 }
