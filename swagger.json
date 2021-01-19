@@ -186,6 +186,20 @@
                 }
             }
         },
+        "/api/admin/logOut": {
+            "get": {
+                "summary": "Log out Admin",
+                "tags": [
+                    "Admin"
+                ],
+                "consumes": "application/json",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
         "/api/admin/updateStatus": {
             "put": {
                 "summary": "Update user status",

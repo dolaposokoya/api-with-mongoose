@@ -15,6 +15,6 @@ router.post("/loginAdmin", basicAuth, loginAdmin);
 //- - - - - - - - - - - - - - - - - - -UPDATE - STATUS - OF - USER - - - - - - - - - - - - - - - - - - - - //
 router.put("/updateStatus", verifyToken, updateUserStatus);
 
-router.get('logOut', logOut)
+router.get('/logOut', logOut)
 
 module.exports = router;

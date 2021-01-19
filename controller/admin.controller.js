@@ -68,7 +68,6 @@ const loginAdmin = async (req, res) => {
                     req.session.cookie.expires = 86400000;
                     req.session.session_id = random.randomBytes(16).toString('hex')
                     const session_id = req.session.session_id
-
                     statusMessages.SUCCESS_MSG.SUCCESS.data = { session_id, profile_image, first_name, last_name }
                     res.json(statusMessages.SUCCESS_MSG.SUCCESS)
                 }
@@ -116,8 +115,9 @@ const updateUserStatus = async (req, res) => {
 
 const logOut = async (req, res) => {
     try {
-        req.session.destory()
-        res.json(statusMessages.SUCCESS_MSG.LOG_OUT)
+        req.session.destroy(function (error) {
+            res.json(error ? error.message : statusMessages.SUCCESS_MSG.LOG_OUT)
+        })
     }
     catch (error) {
         statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
