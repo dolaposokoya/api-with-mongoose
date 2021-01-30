@@ -32,7 +32,10 @@ app.use(session({
     token: '',
     saveUninitialized: false,
     resave: false,
-    // cookie: { secure: true }
+    // cookie: {
+    //     secure: true,
+    //     httpOnly: true
+    // }
 }));
 // app.use(morgan("combined"));
 

@@ -71,8 +71,9 @@ const loginUser = async (req, res) => {
                         req.session.token = token;
                         req.session.cookie.expires = 86400000;
                         req.session.session_id = random.randomBytes(16).toString('hex')
-                        const session_id = req.session.session_id
-                        statusMessages.SUCCESS_MSG.SUCCESS.data = { session_id, first_name, last_name, profile_image }
+                        const session_expires = new Date(Date.now() + (3600 * 1000 * 24))
+                        const session = req.session
+                        statusMessages.SUCCESS_MSG.SUCCESS.data = { session_expires, first_name, last_name, profile_image }
                         res.json(statusMessages.SUCCESS_MSG.SUCCESS)
                     } else {
                         res.json(statusMessages.ERROR_MSG.EMAIL_OR_PASSWORD)
@@ -108,6 +109,7 @@ const getOneUser = async (req, res) => {
 // 1 is ascending  while -1 is descending
 const getAllUser = async (req, res) => {
     try {
+        console.log('Session',req.session)
         const response = await userSchema.find().sort({ createdAt: -1 })
         if (response) {
             statusMessages.SUCCESS_MSG.SUCCESS.data = response

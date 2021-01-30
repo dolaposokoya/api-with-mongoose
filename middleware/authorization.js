@@ -6,9 +6,11 @@ const adminSchema = require("../model/admin.model");
 const verifyToken = async (req, res, next) => {
     try {
         const session = req.session;
+        console.log('session',session)
         if (session.token) {
             const legit = await token.checkToken(session.token)
-            if (legit.success == true) {
+            // const legit = await token.checkToken(req.headers.token)
+            if (legit.success === true) {
                 req.user = legit.user_token
                 const response = req.user.user_type === 'admin' ? await adminSchema.findById({ _id: req.user._id }) : await userSchema.findById({ _id: req.user._id })
                 if (response) {
