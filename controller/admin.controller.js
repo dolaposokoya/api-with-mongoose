@@ -64,15 +64,13 @@ const loginAdmin = async (req, res) => {
                 const deHash = await verifyPassword(password, response.password)
                 if (deHash) {
                     const token = await generateToken(response.email, username, _id, user_type)
-                    req.session.token = token;
-                    const date = new Date(Date.now() + (86400000))
-                    req.session.cookie.expires = date;
-                    // req.session.cookie.secure = true;
-                    req.session.session_id = random.randomBytes(16).toString('hex')
-                    const session = req.session.cookie.expires
-                    const sessionID = req.sessionID
-                    statusMessages.SUCCESS_MSG.SUCCESS.data = { session, sessionID, profile_image, first_name, last_name }
-                    res.json(statusMessages.SUCCESS_MSG.SUCCESS)
+                    if (token) {
+                        statusMessages.SUCCESS_MSG.SUCCESS.data = { token, profile_image, first_name, last_name }
+                        res.json(statusMessages.SUCCESS_MSG.SUCCESS)
+                    }
+                    else {
+                        res.json(statusMessages.ERROR_MSG.SOMETHING_WENT_WRONG)
+                    }
                 }
                 else {
                     res.json(statusMessages.ERROR_MSG.EMAIL_OR_PASSWORD)

@@ -3,7 +3,7 @@ const { basicAuth } = require('../config/basicAuthentication');
 const { deleteFile } = require('../controller/file.controller');
 const router = express.Router();
 const { findUser, registerUser, getAllUser, getOneUser, loginUser, allGroup, updateUser, forgotPassword, deleteUser, filterUser, contactUser, sortAllUser, logOut } = require('../controller/user.controller');
-const { verifyToken } = require('../middleware/authorization');
+const { verifyToken, checkJwt } = require('../middleware/authorization');
 const { sendRequestMail } = require("../controller/mail.controller");
 
 
@@ -16,7 +16,8 @@ router.get("/getUserById", verifyToken, getOneUser);
 
 
 //- - - - - - - - - - - - - - GET - ALL - DATA - FROM - USER - MODULE - - - - - - - - - - - - - - - - -
-router.get("/getAllUser", verifyToken, getAllUser);
+router.get("/getAllUser", checkJwt, getAllUser);
+// router.get("/getAllUser", verifyToken, getAllUser);
 
 //- - - - - - - - - - - - - - GET - ALL - DATA - FROM - USER - MODULE - - - - - - - - - - - - - - - - -
 router.get("/filterUser", verifyToken, filterUser);

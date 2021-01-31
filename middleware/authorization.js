@@ -5,27 +5,19 @@ const adminSchema = require("../model/admin.model");
 
 const verifyToken = async (req, res, next) => {
     try {
-        const session = req.session;
-        console.log('session',session)
-        if (session.token) {
-            const legit = await token.checkToken(session.token)
-            // const legit = await token.checkToken(req.headers.token)
-            if (legit.success === true) {
-                req.user = legit.user_token
-                const response = req.user.user_type === 'admin' ? await adminSchema.findById({ _id: req.user._id }) : await userSchema.findById({ _id: req.user._id })
-                if (response) {
-                    next();
-                }
-                else {
-                    res.json(statusMessages.ERROR_MSG.NO_MATCH)
-                }
+        const legit = await token.checkToken(req.headers.token)
+        if (legit.success === true) {
+            req.user = legit.user_token
+            const response = req.user.user_type === 'admin' ? await adminSchema.findById({ _id: req.user._id }) : await userSchema.findById({ _id: req.user._id })
+            if (response) {
+                next();
             }
             else {
-                res.json(statusMessages.ERROR_MSG.UNAUTHORIZATION_ACCESS);
+                res.json(statusMessages.ERROR_MSG.NO_MATCH)
             }
         }
         else {
-            res.json(statusMessages.ERROR_MSG.ACCESS_DENIED);
+            res.json(statusMessages.ERROR_MSG.UNAUTHORIZATION_ACCESS);
         }
     }
     catch (error) {
@@ -33,6 +25,7 @@ const verifyToken = async (req, res, next) => {
         res.json(statusMessages.ERROR_MSG.IMP_ERROR)
     }
 }
+
 
 module.exports = {
     verifyToken
