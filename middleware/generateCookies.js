@@ -8,7 +8,6 @@ const generateCookies = async (req, res, next) => {
     const { token, _id, profile_image, first_name, last_name } = req
     const session_id = random.randomBytes(16).toString('hex')
     const credentials = `${Base64.encode(`${first_name}${_id}${session_id}`)}`
-    const newcredentials = Buffer.from(credentials, 'base64').toString('ascii');
     const expires = new Date(Date.now() + (3600 * 1000 * 24))
     const maxAge = 5000
     if (token && _id && profile_image && first_name && last_name) {
@@ -25,7 +24,7 @@ const generateCookies = async (req, res, next) => {
                 expires,
                 httpOnly: false
             })
-            SUCCESS_MSG.SUCCESS.data = {session_id, profile_image, first_name, last_name }
+            SUCCESS_MSG.SUCCESS.data = {SESSION_ID, profile_image, first_name, last_name }
             res.json(SUCCESS_MSG.SUCCESS)
         }
         else {
