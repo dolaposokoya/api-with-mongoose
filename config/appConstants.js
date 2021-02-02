@@ -43,11 +43,17 @@ const statusMessages = {
             type: "INVALID_CREDENTIALS"
         },
         SOMETHING_WENT_WRONG: {
-            status: 404,
+            status: 500,
             success: false,
             message: "Something Went Wrong",
             type: "SOMETHING_WENT_WRONG",
             error: {}
+        },
+        BAD_REQUEST: {
+            status: 400 ,
+            success: false,
+            message: "Bad Request",
+            type: "BAD_REQUEST"
         },
         DATA_EXIST: {
             status: 404,

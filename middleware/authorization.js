@@ -5,19 +5,25 @@ const adminSchema = require("../model/admin.model");
 
 const verifyToken = async (req, res, next) => {
     try {
-        const legit = await token.checkToken(req.headers.token)
-        if (legit.success === true) {
-            req.user = legit.user_token
-            const response = req.user.user_type === 'admin' ? await adminSchema.findById({ _id: req.user._id }) : await userSchema.findById({ _id: req.user._id })
-            if (response) {
-                next();
+        // const legit = await token.checkToken(req.headers.token)
+        if (req.cookies._USER_AUTHORIZATION_ && req.cookies_SESSION_ID_ && req.cookies._BLOODBANK_SESSION_) {
+            const legit = await token.checkToken(req.cookies._USER_AUTHORIZATION_)
+            if (legit.success === true) {
+                req.user = legit.user_token
+                const response = req.user.user_type === 'admin' ? await adminSchema.findById({ _id: req.user._id }) : await userSchema.findById({ _id: req.user._id })
+                if (response) {
+                    next();
+                }
+                else {
+                    res.json(statusMessages.ERROR_MSG.NO_MATCH)
+                }
             }
             else {
-                res.json(statusMessages.ERROR_MSG.NO_MATCH)
+                res.json(statusMessages.ERROR_MSG.UNAUTHORIZATION_ACCESS);
             }
         }
         else {
-            res.json(statusMessages.ERROR_MSG.UNAUTHORIZATION_ACCESS);
+            res.json(statusMessages.ERROR_MSG.ACCESS_DENIED);
         }
     }
     catch (error) {

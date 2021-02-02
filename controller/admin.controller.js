@@ -1,9 +1,12 @@
+"use strict";
+const { SESSION_ID, ENV } = process.env
 const adminSchema = require("../model/admin.model");
 const userSchema = require("../model/user.model");
 const { encryptPassword, verifyPassword } = require('../utilities/universalFunctions');
 const random = require('crypto')
 const { generateToken } = require('../config/jwtAuthorization')
-const statusMessages = require('../config/appConstants')
+const statusMessages = require('../config/appConstants');
+
 
 const findAdmin = async (req, res, next) => {
     try {
@@ -53,7 +56,7 @@ const createAdmin = async (req, res) => {
 }
 
 
-const loginAdmin = async (req, res) => {
+const loginAdmin = async (req, res, next) => {
     try {
         const { password, email } = req.body
         const adminEmail = email.toLowerCase();
@@ -65,8 +68,12 @@ const loginAdmin = async (req, res) => {
                 if (deHash) {
                     const token = await generateToken(response.email, username, _id, user_type)
                     if (token) {
-                        statusMessages.SUCCESS_MSG.SUCCESS.data = { token, profile_image, first_name, last_name }
-                        res.json(statusMessages.SUCCESS_MSG.SUCCESS)
+                        req.token = token
+                        req._id = _id
+                        req.profile_image = profile_image
+                        req.first_name = first_name
+                        req.last_name = last_name
+                        next();
                     }
                     else {
                         res.json(statusMessages.ERROR_MSG.SOMETHING_WENT_WRONG)

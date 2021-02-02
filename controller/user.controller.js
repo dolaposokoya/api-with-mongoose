@@ -1,5 +1,7 @@
 "use strict";
+const { SESSION_ID, ENV } = process.env
 const { encryptPassword, verifyPassword } = require('../utilities/universalFunctions');
+const { generateCookies } = require('../middleware/generateCookies');
 const { generateToken } = require('../config/jwtAuthorization')
 const userSchema = require("../model/user.model");
 const random = require('crypto')
@@ -49,7 +51,7 @@ const registerUser = async (req, res) => {
     }
 }
 
-const loginUser = async (req, res) => {
+const loginUser = async (req, res, next) => {
     try {
         const { password } = req.body;
         const email = req.body.email.toLowerCase();
@@ -68,13 +70,17 @@ const loginUser = async (req, res) => {
                     if (decrypt) {
                         const { _id, username, first_name, last_name, profile_id, user_type, profile_image } = response
                         const token = await generateToken(userEmail, username, _id, user_type)
-                        req.session.token = token;
-                        req.session.cookie.expires = 86400000;
-                        req.session.session_id = random.randomBytes(16).toString('hex')
-                        const session_expires = new Date(Date.now() + (3600 * 1000 * 24))
-                        const session = req.session
-                        statusMessages.SUCCESS_MSG.SUCCESS.data = { session_expires, first_name, last_name, profile_image }
-                        res.json(statusMessages.SUCCESS_MSG.SUCCESS)
+                        if (token) {
+                            req.token = token
+                            req._id = _id
+                            req.profile_image = profile_image
+                            req.first_name = first_name
+                            req.last_name = last_name
+                            next();
+                        }
+                        else {
+                            res.json(statusMessages.ERROR_MSG.SOMETHING_WENT_WRONG)
+                        }
                     } else {
                         res.json(statusMessages.ERROR_MSG.EMAIL_OR_PASSWORD)
                     }
@@ -109,7 +115,7 @@ const getOneUser = async (req, res) => {
 // 1 is ascending  while -1 is descending
 const getAllUser = async (req, res) => {
     try {
-        console.log('Session',req.session)
+        console.log('Session', req.session)
         const response = await userSchema.find().sort({ createdAt: -1 })
         if (response) {
             statusMessages.SUCCESS_MSG.SUCCESS.data = response

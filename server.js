@@ -22,21 +22,11 @@ const app = express();
 
 
 const PORT = process.env.PORT || 5100
-app.use(cookieParser());
+app.use(cookieParser({ secret: SESSION_SECRET }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: false }));
 app.use(cors());
-app.use(session({
-    secret: SESSION_SECRET,
-    token: '',
-    saveUninitialized: false,
-    resave: false,
-    // cookie: {
-    //     secure: true,
-    //     httpOnly: true
-    // }
-}));
 // app.use(morgan("combined"));
 
 

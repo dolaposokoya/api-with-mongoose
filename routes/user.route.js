@@ -3,8 +3,9 @@ const { basicAuth } = require('../config/basicAuthentication');
 const { deleteFile } = require('../controller/file.controller');
 const router = express.Router();
 const { findUser, registerUser, getAllUser, getOneUser, loginUser, allGroup, updateUser, forgotPassword, deleteUser, filterUser, contactUser, sortAllUser, logOut } = require('../controller/user.controller');
-const { verifyToken, checkJwt } = require('../middleware/authorization');
+const { verifyToken } = require('../middleware/authorization');
 const { sendRequestMail } = require("../controller/mail.controller");
+const { generateCookies } = require('../middleware/generateCookies');
 
 
 
@@ -15,9 +16,8 @@ router.post("/createUser", basicAuth, findUser, registerUser);
 router.get("/getUserById", verifyToken, getOneUser);
 
 
-//- - - - - - - - - - - - - - GET - ALL - DATA - FROM - USER - MODULE - - - - - - - - - - - - - - - - -
-router.get("/getAllUser", checkJwt, getAllUser);
-// router.get("/getAllUser", verifyToken, getAllUser);
+//- - - - - - - - - - - - - - GET - ALL - DATA - FROM - USER - MODULE - - - - - - - - - - - - - - - - -//
+router.get("/getAllUser", verifyToken, getAllUser);
 
 //- - - - - - - - - - - - - - GET - ALL - DATA - FROM - USER - MODULE - - - - - - - - - - - - - - - - -
 router.get("/filterUser", verifyToken, filterUser);
@@ -26,7 +26,7 @@ router.get("/filterUser", verifyToken, filterUser);
 router.get("/sortAllUser", verifyToken, sortAllUser);
 
 //- - - - - - - - - - - - - - LOGIN - USER - BY - USER'S - MAIL - & - PASSWORD - - - - - - - - - - - - - - - - -
-router.post("/loginUser", basicAuth, loginUser,);
+router.post("/loginUser", basicAuth, loginUser, generateCookies);
 
 //- - - - - - - - - - - - - - GET - DATA - FROM - USER - MODULE - BY - BLOOD GROUP - - - - - - - - - - - - - - - - -
 router.get("/bloodAllGroup", verifyToken, allGroup);

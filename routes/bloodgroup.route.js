@@ -8,7 +8,7 @@ const { verifyToken } = require('../middleware/authorization');
 // - - -  - - - - - - - - - - - - - - - - - - - - - -  - CREATE METADATA - - - - - - - - - - - - - - - - - - - - - - - //
 router.post("/Metadata", createBloodGroup);
 // - - - - - - - - - -  - - - - - -  - - - - GET METADATA  - - - - - - - - - - - - - - - - - - //
-router.get("/bloodAllGroup", basicAuth, verifyToken,getAllBloodGroup);
+router.get("/bloodAllGroup", basicAuth, getAllBloodGroup);
 
 
 module.exports = router;

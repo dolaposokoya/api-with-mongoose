@@ -25,7 +25,8 @@ const getAllBloodGroup = async (req, res) => {
         const response = await metaDataSchema.find()
         if (response) {
             pusher.trigger('blood', 'my-blood', { data: response });
-            statusMessages.SUCCESS_MSG.SUCCESS.data = response
+            const { cookies } = req
+            statusMessages.SUCCESS_MSG.SUCCESS.data = { response, cookies }
             res.json(statusMessages.SUCCESS_MSG.SUCCESS);
         } else {
             res.json(statusMessages.ERROR_MSG.UNABLE_TO_RETRIEVE);;

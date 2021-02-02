@@ -2,6 +2,7 @@ const express = require("express");
 const { basicAuth } = require("../config/basicAuthentication");
 const router = express.Router();
 const { verifyToken } = require('../middleware/authorization');
+const { generateCookies } = require('../middleware/generateCookies');
 const { createAdmin, loginAdmin, findAdmin, updateUserStatus, logOut } = require('../controller/admin.controller')
 
 // - - -  - - - - - - - - - - - - - CREATE ADMIN - - - - - - - - - - - - - - - //
@@ -9,7 +10,7 @@ router.post("/createAdmin", basicAuth, findAdmin, createAdmin);
 
 
 // - - -  - - - - - - - - - - - - - LOGIN ADMIN - - - - - - - - - - - - - - - //
-router.post("/loginAdmin", basicAuth, loginAdmin);
+router.post("/loginAdmin", basicAuth, loginAdmin, generateCookies);
 
 
 //- - - - - - - - - - - - - - - - - - -UPDATE - STATUS - OF - USER - - - - - - - - - - - - - - - - - - - - //
