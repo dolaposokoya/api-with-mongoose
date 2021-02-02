@@ -39,7 +39,7 @@ const generateCookies = async (req, res, next) => {
             })
             res.cookie('_SESSION_ID_', SESSION_ID, {
                 expires,
-                httpOnly: true,
+                httpOnly: false,
                 secure: true
             })
             SUCCESS_MSG.SUCCESS.data = { profile_image, first_name, last_name }
