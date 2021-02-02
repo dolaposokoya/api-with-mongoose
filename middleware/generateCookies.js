@@ -2,11 +2,13 @@
 const { SESSION_ID, ENV } = process.env
 const random = require('crypto')
 const { SUCCESS_MSG, ERROR_MSG } = require('../config/appConstants');
+const { Base64 } = require('js-base64');
 
 const generateCookies = async (req, res, next) => {
     const { token, _id, profile_image, first_name, last_name } = req
     const session_id = random.randomBytes(16).toString('hex')
-    const credentials = Buffer.from(`${_id}${session_id}`, 'base64').toString('ascii');
+    const credentials = `${Base64.encode(`${first_name}${_id}${session_id}`)}`
+    const newcredentials = Buffer.from(credentials, 'base64').toString('ascii');
     const expires = new Date(Date.now() + (3600 * 1000 * 24))
     const maxAge = 5000
     if (token && _id && profile_image && first_name && last_name) {
@@ -23,7 +25,7 @@ const generateCookies = async (req, res, next) => {
                 expires,
                 httpOnly: false
             })
-            SUCCESS_MSG.SUCCESS.data = { profile_image, first_name, last_name }
+            SUCCESS_MSG.SUCCESS.data = {newcredentials, credentials, profile_image, first_name, last_name }
             res.json(SUCCESS_MSG.SUCCESS)
         }
         else {

@@ -39,12 +39,6 @@ app.use("/api/file", fileRoute);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-
-// app.get("/", (req, res) => {
-// const newSession = req.session;
-// newSession.token;
-// });
-
 app.listen(PORT, () => {
     console.log(`App listen at http://localhost:${PORT}/`)
 })

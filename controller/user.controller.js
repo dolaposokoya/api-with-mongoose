@@ -1,7 +1,5 @@
 "use strict";
-const { SESSION_ID, ENV } = process.env
 const { encryptPassword, verifyPassword } = require('../utilities/universalFunctions');
-const { generateCookies } = require('../middleware/generateCookies');
 const { generateToken } = require('../config/jwtAuthorization')
 const userSchema = require("../model/user.model");
 const random = require('crypto')
@@ -115,7 +113,6 @@ const getOneUser = async (req, res) => {
 // 1 is ascending  while -1 is descending
 const getAllUser = async (req, res) => {
     try {
-        console.log('Session', req.session)
         const response = await userSchema.find().sort({ createdAt: -1 })
         if (response) {
             statusMessages.SUCCESS_MSG.SUCCESS.data = response
