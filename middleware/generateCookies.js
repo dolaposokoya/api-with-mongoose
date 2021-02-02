@@ -24,8 +24,6 @@ const generateCookies = async (req, res, next) => {
                 expires,
                 httpOnly: false
             })
-            SUCCESS_MSG.SUCCESS.data = {SESSION_ID, profile_image, first_name, last_name }
-            res.json(SUCCESS_MSG.SUCCESS)
         }
         else {
             res.cookie('_BLOODBANK_SESSION_', credentials, {
@@ -43,9 +41,11 @@ const generateCookies = async (req, res, next) => {
                 httpOnly: false,
                 secure: true
             })
-            SUCCESS_MSG.SUCCESS.data = { profile_image, first_name, last_name }
-            res.json(SUCCESS_MSG.SUCCESS)
+            // SUCCESS_MSG.SUCCESS.data = { profile_image, first_name, last_name }
+            // res.json(SUCCESS_MSG.SUCCESS)
         }
+        SUCCESS_MSG.SUCCESS.data = {SESSION_ID, profile_image, first_name, last_name }
+            res.json(SUCCESS_MSG.SUCCESS)
     }
     else {
         res.json(ERROR_MSG.BAD_REQUEST)
