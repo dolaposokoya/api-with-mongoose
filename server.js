@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: false }));
 app.use(cors());
-// app.use(morgan("combined"));
+app.use(morgan("combined"));
 
 
 app.use("/api/admin", adminRoute);
@@ -40,5 +40,5 @@ app.use("/api/file", fileRoute);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.listen(PORT, () => {
-    console.log(`App listen at http://localhost:${PORT}/`)
+    console.log(`App listen at http://127.0.0.1:${PORT}/`)
 })

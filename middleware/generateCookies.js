@@ -1,5 +1,5 @@
 "use strict";
-const { SESSION_ID, ENV } = process.env
+const { SESSION_ID, ENVIRONMENT } = process.env
 const random = require('crypto')
 const { SUCCESS_MSG, ERROR_MSG } = require('../config/appConstants');
 const { Base64 } = require('js-base64');
@@ -11,7 +11,7 @@ const generateCookies = async (req, res, next) => {
     const expires = new Date(Date.now() + (3600 * 1000 * 24))
     const maxAge = 5000
     if (token && _id && profile_image && first_name && last_name) {
-        if (ENV === 'development') {
+        if (ENVIRONMENT === 'development') {
             res.cookie('_BLOODBANK_SESSION_', credentials, {
                 expires,
                 httpOnly: true
