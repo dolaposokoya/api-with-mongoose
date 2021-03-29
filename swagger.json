@@ -187,7 +187,7 @@
             }
         },
         "/api/admin/logOut": {
-            "get": {
+            "post": {
                 "summary": "Log out Admin",
                 "tags": [
                     "Admin"
@@ -524,6 +524,20 @@
                         "description": "Donor Id"
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/api/user/logOutUser": {
+            "get": {
+                "summary": "Log out User",
+                "tags": [
+                    "User"
+                ],
+                "consumes": "application/json",
                 "responses": {
                     "200": {
                         "description": ""

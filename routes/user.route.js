@@ -2,7 +2,7 @@ const express = require("express");
 const { basicAuth } = require('../config/basicAuthentication');
 const { deleteFile } = require('../controller/file.controller');
 const router = express.Router();
-const { findUser, registerUser, getAllUser, getOneUser, loginUser, allGroup, updateUser, forgotPassword, deleteUser, filterUser, contactUser, sortAllUser, logOut } = require('../controller/user.controller');
+const { findUser, registerUser, getAllUser, getOneUser, loginUser, allGroup, updateUser, forgotPassword, deleteUser, filterUser, contactUser, sortAllUser, logOutUser } = require('../controller/user.controller');
 const { verifyToken } = require('../middleware/authorization');
 const { sendRequestMail } = require("../controller/mail.controller");
 const { generateCookies } = require('../middleware/generateCookies');
@@ -42,7 +42,7 @@ router.delete("/deleteUser", verifyToken, deleteUser, deleteFile);
 
 router.get("/contactUser", verifyToken, contactUser, sendRequestMail);
 
-router.get('logOut', logOut)
+router.get('logOutUser', logOutUser)
 /**
  * Delete User
  */

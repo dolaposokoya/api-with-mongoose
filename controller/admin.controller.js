@@ -123,15 +123,16 @@ const updateUserStatus = async (req, res) => {
 
 const logOut = async (req, res) => {
     try {
-        req.session.destroy(function (error) {
-            res.json(error ? error.message : statusMessages.SUCCESS_MSG.LOG_OUT)
-        })
+        req.session.destory()
+        res.cookie = {}
+        res.json(statusMessages.SUCCESS_MSG.LOG_OUT)
     }
     catch (error) {
         statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
         res.status(500).json(statusMessages.ERROR_MSG.IMP_ERROR)
     }
 }
+
 module.exports = {
     createAdmin,
     findAdmin,

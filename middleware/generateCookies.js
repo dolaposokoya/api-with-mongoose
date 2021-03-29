@@ -24,7 +24,7 @@ const generateCookies = async (req, res, next) => {
                 expires,
                 httpOnly: false
             })
-            SUCCESS_MSG.SUCCESS.data = { SESSION_ID, profile_image, first_name, last_name }
+            SUCCESS_MSG.SUCCESS.data = { SESSION_ID, profile_image, first_name, last_name, _id }
             res.json(SUCCESS_MSG.SUCCESS)
         }
         else {
@@ -43,7 +43,7 @@ const generateCookies = async (req, res, next) => {
                 httpOnly: false,
                 secure: true
             })
-            SUCCESS_MSG.SUCCESS.data = { SESSION_ID, profile_image, first_name, last_name }
+            SUCCESS_MSG.SUCCESS.data = { _id, SESSION_ID, profile_image, first_name, last_name }
             res.json(SUCCESS_MSG.SUCCESS)
         }
         // SUCCESS_MSG.SUCCESS.data = {SESSION_ID, profile_image, first_name, last_name }

@@ -116,6 +116,7 @@ const getAllUser = async (req, res) => {
         const response = await userSchema.find().sort({ createdAt: -1 })
         if (response) {
             statusMessages.SUCCESS_MSG.SUCCESS.data = response
+            console.log('response returned successfully')
             res.json(statusMessages.SUCCESS_MSG.SUCCESS)
         } else {
             res.json(statusMessages.ERROR_MSG.DATA_NOT_FOUND)
@@ -288,10 +289,17 @@ const contactUser = async (req, res, next) => {
     }
 }
 
-const logOut = async (req, res) => {
+const logOutUser = async (req, res) => {
     try {
-        req.session.destory()
+        console.log('Check Ress')
+        // console.log('Ress', req.cookies)
+        // req.session.destory()
+        // res.cookie = {}
+        res.cookie("_SESSION_ID_", "", { expires: new Date() });
+        res.cookie("_USER_AUTHORIZATION_", "", { expires: new Date() });
+        res.cookie("_BLOODBANK_SESSION_", "", { expires: new Date() });
         res.json(statusMessages.SUCCESS_MSG.LOG_OUT)
+        // console.log('Ress', req.cookies)
     }
     catch (error) {
         statusMessages.ERROR_MSG.IMP_ERROR.message = error.message
@@ -312,5 +320,5 @@ module.exports = {
     forgotPassword,
     deleteUser,
     contactUser,
-    logOut
+    logOutUser
 }
