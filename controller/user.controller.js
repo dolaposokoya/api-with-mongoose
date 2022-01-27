@@ -116,7 +116,6 @@ const getAllUser = async (req, res) => {
         const response = await userSchema.find().sort({ createdAt: -1 })
         if (response) {
             statusMessages.SUCCESS_MSG.SUCCESS.data = response
-            console.log('response returned successfully')
             res.json(statusMessages.SUCCESS_MSG.SUCCESS)
         } else {
             res.json(statusMessages.ERROR_MSG.DATA_NOT_FOUND)

@@ -1,7 +1,5 @@
 const statusMessages = require('../config/appConstants')
-const password = process.env.password
-const email = process.env.email
-const userid = process.env.userid
+const { password, email, userid } = process.env
 const users = [{ userid, email, password }];
 
 module.exports = {

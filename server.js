@@ -5,7 +5,7 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const config = require("./DB");
+require("./DB");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
 const session = require('express-session');
@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: false }));
 app.use(cors());
-// app.use(morgan("combined"));
+app.use(morgan("combined"));
 
 
 app.use("/api/admin", adminRoute);

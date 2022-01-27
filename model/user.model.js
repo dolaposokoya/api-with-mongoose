@@ -24,7 +24,8 @@ const userSchema = new Schema({
     number_of_request: { type: Number, default: 0 },
     clientVendor: { type: String },
     clientBrowser: { type: String },
-    approved: { type: Boolean, default: false }
+    approved: { type: Boolean, default: false },
+    signedIn: { type: String },
 }, {
     versionKey: false,
     timestamps: true

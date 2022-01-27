@@ -24,7 +24,7 @@ const generateCookies = async (req, res, next) => {
                 expires,
                 httpOnly: false
             })
-            SUCCESS_MSG.SUCCESS.data = { SESSION_ID, profile_image, first_name, last_name, _id }
+            SUCCESS_MSG.SUCCESS.data = { SESSION_ID, profile_image, first_name, last_name, _id, }
             res.json(SUCCESS_MSG.SUCCESS)
         }
         else {
